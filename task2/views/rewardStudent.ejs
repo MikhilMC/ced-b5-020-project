@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <form action="/reward-student/studentRewarded" method="POST">
+        <input type="text" name="studentaddress" id="studentaddress" placeholder=" Enter the Address of the Student ?" size="40"><br><br>
+        <input type="text" name="amount" id="amount" placeholder=" Enter Reward Amount ?"><br><br>
+        <input type="submit" value="Reward Student">
+    </form>
+</body>
+
+</html>

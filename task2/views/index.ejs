@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <ol>
+        <% for(let i=0;i<5;i++) {%>
+            <li><a href="<%=links[i].source %>"><%=links[i].name%></a></li>
+        <% } %> 
+    </ol>
+</body>
+
+</html>

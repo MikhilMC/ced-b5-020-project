@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <form action="/start-club/clubStarted" method="POST">
+        <input type="text" name="clubid" id="clubid" placeholder=" Enter Club ID ?"><br><br>
+        <input type="text" name="clubname" id="clubname" placeholder=" Enter Club Name ?"><br><br>
+        <input type="text" name="inchargename" id="inchargename" placeholder=" Enter Club In Charge ?"><br><br>
+        <input type="submit" value="Start Club">
+    </form>
+</body>
+
+</html>

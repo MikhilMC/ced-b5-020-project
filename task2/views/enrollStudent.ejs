@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1><%= title %></h1>
+    <form action="/enroll-student/studentEnrolled" method="POST">
+        <input type="text" name="id" id="id" placeholder=" Enter Student ID ?"><br><br>
+        <input type="text" name="sname" id="sname" placeholder=" Enter Student Name ?"><br><br>
+        <input type="submit" value="Enroll Student">
+    </form>
+</body>
+
+</html>
