@@ -11,6 +11,7 @@ var enrollStudentRouter = require('./routes/enrollStudent');
 var startClubRouter = require('./routes/startClub');
 var addStudentToClubRouter = require('./routes/addStudentToClub');
 var rewardStudentRouter = require('./routes/rewardStudent');
+var getBalanceRouter = require('./routes/getBalance');
 
 var MyContractJSON = require(path.join(__dirname, 'build/contracts/CSRewards.json'));
 
@@ -41,6 +42,7 @@ app.use('/enroll-student', enrollStudentRouter);
 app.use('/start-club', startClubRouter);
 app.use('/add-student-to-club', addStudentToClubRouter);
 app.use('/reward-student', rewardStudentRouter);
+app.use('/get-balance', getBalanceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

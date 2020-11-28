@@ -13,11 +13,16 @@ router.post('/studentRewarded', function(req, res, next) {
     // res.send(data);
     web3.eth.getAccounts()
     .then((accounts)=>{
-        MyContract.methods.enrollStudent(data.id, data.sname)
+        MyContract.methods.approve(data.inchargeaddress, data.amount)
         .send({ from: accounts[0] })
-        .then((txn)=>{
-            console.log(txn);
-            res.send(txn);
+        .then((approveTxn)=>{
+            console.log(approveTxn);
+            MyContract.methods.reward(data.studentaddress, data.amount)
+            .send({ from: accounts[0] })
+            .then((txn)=>{
+                console.log(txn);
+                res.send(txn);
+            });
         });
     });
 });
