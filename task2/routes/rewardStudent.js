@@ -17,11 +17,12 @@ router.post('/studentRewarded', function(req, res, next) {
         .send({ from: accounts[0] })
         .then((approveTxn)=>{
             console.log(approveTxn);
+            console.log(approveTxn.events.returnValues);
             MyContract.methods.reward(data.studentaddress, data.amount)
             .send({ from: accounts[0] })
-            .then((txn)=>{
-                console.log(txn);
-                res.send(txn);
+            .then(async(txn)=>{
+                await console.log(txn);
+                await res.send(txn);
             });
         });
     });

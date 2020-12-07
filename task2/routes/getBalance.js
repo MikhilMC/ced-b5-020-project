@@ -16,13 +16,15 @@ router.post('/balance', function(req, res, next) {
     .then((accounts)=>{
         MyContract.methods.balanceOf(data.address)
         .call({ from: accounts[0] })
-        .then((result)=>{
-            console.log(result);
-            res.render('balance', {
-                title: 'Balance',
-                address: data.address,
-                result
-            });
+        .then((error, result)=>{
+            if(!error) {
+                console.log(result);
+                // res.render('balance', {
+                //     title: 'Balance',
+                //     address: data.address,
+                //     result
+                // });
+            }
         });
     });
 });
