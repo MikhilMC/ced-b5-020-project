@@ -1,0 +1,4 @@
+geth --identity "DogChain" --networkid "5777" --datadir "data" --http --http.port "8545" --unlock "0xDcc728941375bE4cAB5362937de62D223a641eE6" --http.corsdomain "*" --http.api "miner,eth,net,web3,personal" --allow-insecure-unlock --nodiscover
+
+
+geth --identity "DogChain" --networkid "5777" --http --http.port "8545" --http.corsdomain "*" --http.api "eth,net,web3,personal" --dev

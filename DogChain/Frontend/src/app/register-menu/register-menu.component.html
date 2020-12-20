@@ -1,0 +1,14 @@
+<div class="container row mt-5 d-flex align-items-center justify-content-center">
+  <div class="col-md-3 mx-auto" *ngFor="let account of accounts">
+    <div class="card text-center border-primary rounded">
+      <h5 class="card-header border-primary"><strong>REGISTER</strong></h5>
+      <div class="card-body">
+        <p class="card-title">FOR {{account.type}}, REGISTER</p>
+        <a [routerLink]="['/register-user', account.address]" class="btn btn-primary">HERE</a>
+      </div>
+      <div class="card-footer border-primary">
+        <p class="text-monospace text-muted">IF YOU ALREADY HAVE AN ACCOUNT, THEN GOTO <a routerLink="/login-menu">LOGIN</a> SECTION.</p>
+      </div>
+    </div>
+  </div>
+</div>

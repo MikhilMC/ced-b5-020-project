@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Dog Chain</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+    (click)="toggleNavbar()">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse show" id="navbarSupportedContent" [ngClass]="{ 'show': navbarOpen }">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login-menu" routerLinkActive="active">LOG IN</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/register-menu" routerLinkActive="active">REGISTER</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/authority-home" routerLinkActive="active">AUTHORITY HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/breeder-home" routerLinkActive="active">BREEDER HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/doctor-home" routerLinkActive="active">DOCTOR HOME</a>
+      </li>
+    </ul>
+  </div>
+</nav>

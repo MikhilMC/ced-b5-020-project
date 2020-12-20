@@ -1,0 +1,11 @@
+<div class="container row mt-5 ml-5 d-flex align-items-center justify-content-center">
+  <div class="col-md-4 mx-auto" *ngFor="let activity of activities">
+    <div class="card text-center border-primary rounded my-3">
+      <h5 class="card-header border-primary bg-primary text-light"><strong>AUTHORITY ACTIVITY</strong></h5>
+      <div class="card-body">
+        <p class="card-title">FOR {{activity.type}}, CLICK</p>
+        <a routerLink="{{activity.link}}" class="btn btn-primary">HERE</a>
+      </div>
+    </div>
+  </div>
+</div>
