@@ -9,7 +9,7 @@ import { AuthorityService } from "../authority.service";
 })
 export class DeleteDoctorComponent implements OnInit {
 
-  userId: Number;
+  doctorId: Number;
   name: String;
   nameInCaps: String;
   isAvailable: Boolean;
@@ -22,25 +22,25 @@ export class DeleteDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this._actRoute.paramMap.subscribe(params => {
-      this.userId = Number(params.get("userId"));
-      console.log(this.userId);
-      this._authority.getUnapprovedDoctor(this.userId).subscribe(user => {
-        if (user.hasOwnProperty('msg')) {
+      this.doctorId = Number(params.get("doctorId"));
+      console.log(this.doctorId);
+      this._authority.getUnapprovedDoctor(this.doctorId).subscribe(doctor => {
+        if (doctor.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
           this.isAvailable = true;
-          console.log(user);
-          this.name = user['name'];
+          console.log(doctor);
+          this.name = doctor['name'];
           this.nameInCaps = this.name.toUpperCase();          
         }
       });
     });
   }
 
-  deleteDoctor(_userId) {
-    console.log(_userId);
-    this._authority.deleteDoctor(this.userId).subscribe(user => {
-      console.log(user);
+  deleteDoctor() {
+    this._authority.deleteDoctor(this.doctorId)
+    .subscribe(doctor => {
+      console.log(doctor);
       this._router.navigate(['/approve-doctors']);
     })
   }

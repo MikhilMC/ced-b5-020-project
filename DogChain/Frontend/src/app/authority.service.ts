@@ -14,7 +14,7 @@ export class AuthorityService {
   private _getUnapprovedBreederUrl = "http://localhost:3000/get-unapproved-breeder/";
   private _getUnapprovedDoctorUrl = "http://localhost:3000/get-unapproved-doctor/";
   private _getUnapprovedDogBirthRegistrationUrl = "http://localhost:3000/get-unapproved-dog-registration/";
-  private _getUnapprovedOwnershipTransfesUrl = "http://localhost:3000/get-unapproved-dog-ownership-transfer/";
+  private _getUnapprovedOwnershipTransferUrl = "http://localhost:3000/get-unapproved-dog-ownership-transfer/";
   
   private _deleteBreederUrl = "http://localhost:3000/delete-breeder/";
   private _deleteDoctorUrl = "http://localhost:3000/delete-doctor/";
@@ -46,7 +46,9 @@ export class AuthorityService {
     return this._http.get(this._unapprovedDogBirthRegistrationsUrl);
   }
 
-  getUnapprovedOwnershipTransfers() {}
+  getUnapprovedOwnershipTransfers() {
+    return this._http.get(this._unapprovedOwnershipTransfersUrl);
+  }
 
   getUnapprovedBreeder(userId) {
     return this._http.get(this._getUnapprovedBreederUrl + userId);
@@ -60,7 +62,9 @@ export class AuthorityService {
     return this._http.get(this._getUnapprovedDogBirthRegistrationUrl + dogId);
   }
 
-  getUnapprovedOwnershipTransfer() {}
+  getUnapprovedOwnershipTransfer(dogId) {
+    return this._http.get(this._getUnapprovedOwnershipTransferUrl + dogId);
+  }
 
   deleteBreeder(userId) {
     return this._http.delete(this._deleteBreederUrl + userId);
@@ -74,7 +78,9 @@ export class AuthorityService {
     return this._http.delete(this._deleteDogRegistrationUrl + dogId)
   }
 
-  deleteOwnershipTransfer() {}
+  deleteOwnershipTransfer(dogId) {
+    return this._http.delete(this._deleteOwnershipTransferUrl + dogId)
+  }
 
   approveBreeder(userId) {
     return this._http.post(this._approveBreederUrl, userId);
@@ -88,7 +94,9 @@ export class AuthorityService {
     return this._http.post(this._approveDogRegistrationUrl, dogId);
   }
 
-  approveOwnershipTransfer() {}
+  approveOwnershipTransfer(dogId) {
+    return this._http.post(this._approveOwnershipTransfesUrl, dogId);
+  }
   
   getBreedersList() {}
 

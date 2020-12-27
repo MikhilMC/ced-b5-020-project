@@ -1,16 +1,20 @@
 var express = require('express');
-var BreederData = require('../models/BreederData');
+var OwnershipTransferData = require('../models/DogOwnershipTransferData');
 
 var router = express.Router();
 
 router.get('/', (req, res) => {
-  BreederData.find({hasAddedToBlockchain: false}, null, {sort: 'userId'}, (error, breeders) => {
+  OwnershipTransferData.find({hasAddedToBlockchain: false}, null, {sort: 'dogId'}, (error, transfers) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);
     } else {
-      console.log(breeders);
-      res.status(200).send(breeders);
+      if (!transfers) {
+        res.send({msg: "There are no unapproved dog ownership transfers."})
+      } else {
+        console.log(transfers);
+        res.status(200).send(transfers);
+      }
     }
   });
 });

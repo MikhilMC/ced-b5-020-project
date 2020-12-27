@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
-import { DogBirthRegisterDataModel } from "./dog.birth.register.model";
 import { Router } from '@angular/router';
 import { BreederService } from "../breeder.service";
 
@@ -11,17 +10,20 @@ import { BreederService } from "../breeder.service";
 })
 export class DogBirthRegistrationComponent implements OnInit {
 
-  userId: Number;
+  breederId: Number;
+  isFatherRegistered: Boolean;
+  isMotherRegistered: Boolean;
 
-  registeredDog = this._fb.group({
-    dogId : ['', [Validators.pattern(/(0-9)+/), Validators.required]],
+  birthRegisterForm = this._fb.group({
+    dogId : ['', [Validators.pattern(/[0-9]+/), Validators.required]],
     dogName: ['', Validators.required],
     breed: ['', Validators.required],
     colour: ['', Validators.required],
     sex: ['', Validators.required],
     dob: ['', Validators.required],
-    fatherId: ['', [Validators.pattern(/(0-9)+/), Validators.required]],
-    motherId: ['', [Validators.pattern(/(0-9)+/), Validators.required]]
+    typeOfParents: ['', Validators.required],
+    fatherId: [0, Validators.pattern(/[0-9]+/)],
+    motherId: [0, Validators.pattern(/[0-9]+/)]
   });
 
   constructor(
@@ -30,27 +32,47 @@ export class DogBirthRegistrationComponent implements OnInit {
     private _breeder: BreederService
   ) { }
 
-  dogData = new DogBirthRegisterDataModel(null, null, null, null, null, null, null, null);
-
   ngOnInit(): void {
-    this.userId = Number(localStorage.getItem('userId'));
+    this.breederId = Number(localStorage.getItem('breederId'));
   }
 
   registerDog() {
-    this.dogData = this.registeredDog.value;
-    console.log(this.dogData);
-    this._breeder.dogBirthRegister(this.userId, this.dogData)
+    let dogData = {};
+    for (const key in this.birthRegisterForm.value) {
+      if (key !== 'typeOfParents') {
+        dogData[key] = this.birthRegisterForm.value[key];
+      }
+    }
+    console.log(dogData);
+    this._breeder.dogBirthRegister(this.breederId, dogData)
     .subscribe(result => {
       console.log(result);
       if ("msg" in result) {
-        alert(result['msg']);
+        alert(result["msg"]);
         this._router.navigateByUrl('/dummy', {skipLocationChange: true}).then(()=>{
-          this._router.navigate(['/dog-registration', this.userId]);
+          this._router.navigate(['/dog-birth-registration', this.breederId]);
         });
       } else {
         this._router.navigate(['/primary-message'], {queryParams: {message: "Your dog's registration have been submitted for approval process. Please wait until the completion of approval process."}});
       }
     })
+  }
+
+  onChange(value) {
+    // console.log(value);
+    if (value === 'knownParents') {
+      this.isFatherRegistered = true;
+      this.isMotherRegistered = true;
+    } else if (value === 'unknownMother'){
+      this.isFatherRegistered = true;
+      this.isMotherRegistered = false;
+    } else if (value === 'unknownFather'){
+      this.isFatherRegistered = false;
+      this.isMotherRegistered = true;
+    } else if (value === 'unknownParents'){
+      this.isFatherRegistered = false;
+      this.isMotherRegistered = false;
+    }
   }
 
 }

@@ -9,7 +9,7 @@ import { AuthorityService } from '../authority.service';
 })
 export class DeleteBreederComponent implements OnInit {
 
-  userId: Number;
+  breederId: Number;
   name: String;
   nameInCaps: String;
   isAvailable: Boolean;
@@ -22,25 +22,27 @@ export class DeleteBreederComponent implements OnInit {
 
   ngOnInit(): void {
     this._actRoute.paramMap.subscribe(params => {
-      this.userId = Number(params.get('userId'));
-      console.log(this.userId);
-      this._authority.getUnapprovedBreeder(this.userId).subscribe(user => {
-        if (user.hasOwnProperty('msg')) {
+      this.breederId = Number(params.get('breederId'));
+      console.log(this.breederId);
+      this._authority.getUnapprovedBreeder(this.breederId)
+      .subscribe(breeder => {
+        if (breeder.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
           this.isAvailable = true;
-          console.log(user);
-          this.name = user['name'];
+          console.log(breeder);
+          this.name = breeder['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
       });
     });
   }
 
-  deleteBreeder(_userId) {
-    console.log(_userId);
-    this._authority.deleteBreeder(this.userId).subscribe(user => {
-      console.log(user);
+  deleteBreeder() {
+    console.log();
+    this._authority.deleteBreeder(this.breederId)
+    .subscribe(breeder => {
+      console.log(breeder);
       this._router.navigate(['/approve-breeders']);
     })
   }

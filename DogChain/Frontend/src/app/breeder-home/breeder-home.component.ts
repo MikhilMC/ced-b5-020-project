@@ -8,14 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BreederHomeComponent implements OnInit {
 
-  userId: Number;
+  breederId: Number;
 
   constructor(
     private _actRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.userId = Number(localStorage.getItem('userId'));
+    this.breederId = Number(localStorage.getItem('breederId'));
   }
 
 }

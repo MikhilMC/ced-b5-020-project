@@ -1,1 +1,39 @@
-<p>dog-ownership-transfer-approval works!</p>
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <h5><strong>UNAPPROVED DOG BIRTH REGISTRATIONS</strong></h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="!isAvailable">
+            <p class="text-danger">THERE IS NO DOG BIRTH REGISTRATIONS TO APPROVE.</p>
+          </div>
+          <div class="table-responsive" *ngIf="isAvailable">
+            <table class="table table-bordered table-md">
+              <thead class="bg-primary text-light">
+                <tr>
+                  <th>DOG ID</th>
+                  <th>CURRENT OWNER ID</th>
+                  <th>NEW OWNER ID</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ownershipTransfer of ownershipTransfers">
+                  <td>{{ ownershipTransfer['dogId'] }}</td>
+                  <td>{{ ownershipTransfer['currentOwnerId'] }}</td>
+                  <td>{{ ownershipTransfer['newOwnerId'] }}</td>
+                  <td>
+                    <a class="btn btn-success mr-1" [routerLink]="['/approve-dog-ownership-transfer', ownershipTransfer['dogId']]">APPROVE</a>
+                    <a class="btn btn-danger ml-1" [routerLink]="['/delete-dog-ownership-transfer', ownershipTransfer['dogId']]">DELETE</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

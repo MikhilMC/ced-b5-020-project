@@ -1,0 +1,52 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <span class="anchor" id="registerForm"></span>
+
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0">
+            <h5><strong>DOG BIRTH REGISTRATION</strong></h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="vaccinationForm" (ngSubmit)="vaccinateDog()">
+            <div class="form-group row">
+              <label for="vaccId" class="col-md-3 pt-1">Vaccination ID</label>
+              <input type="number" [class.is-invalid]="vaccinationForm.get('vaccId').invalid && vaccinationForm.get('vaccId').touched" class="form-control rounded-0 col-md-8" formControlName="vaccId" name="vaccId">
+              <div class="float-center" *ngIf="vaccinationForm.get('vaccId').invalid && vaccinationForm.get('vaccId').touched">
+                <small *ngIf="vaccinationForm.get('vaccId').errors?.required" class="text-danger">Please enter the vaccination ID</small>
+                <small *ngIf="vaccinationForm.get('vaccId').errors?.pattern" class="text-danger">Enter correct vaccination ID</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="dogId" class="col-md-3 pt-1">Dog ID</label>
+              <input type="number" [class.is-invalid]="vaccinationForm.get('dogId').invalid && vaccinationForm.get('dogId').touched" class="form-control rounded-0 col-md-8" formControlName="dogId" name="dogId">
+              <div class="float-center" *ngIf="vaccinationForm.get('dogId').invalid && vaccinationForm.get('dogId').touched">
+                <small *ngIf="vaccinationForm.get('dogId').errors?.required" class="text-danger">Please enter ID of the dog</small>
+                <small *ngIf="vaccinationForm.get('dogId').errors?.pattern" class="text-danger">Enter correct dog ID</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="vaccDate" class="col-md-3 pt-1">Vaccinated Date</label>
+              <input type="date" [class.is-invalid]="vaccinationForm.get('vaccDate').invalid && vaccinationForm.get('vaccDate').touched" class="form-control rounded-0 col-md-8" formControlName="vaccDate" name="vaccDate">
+              <div *ngIf="vaccinationForm.get('vaccDate').invalid && vaccinationForm.get('vaccDate').touched">
+                <small *ngIf="vaccinationForm.get('vaccDate').errors?.required" class="text-danger">Please enter vaccinated date</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="vaccName" class="col-md-3 pt-1">Vaccination Name</label>
+              <input type="text" [class.is-invalid]="vaccinationForm.get('vaccName').invalid && vaccinationForm.get('vaccName').touched" class="form-control rounded-0 col-md-8" formControlName="vaccName" name="vaccName">
+              <div *ngIf="vaccinationForm.get('vaccName').invalid && vaccinationForm.get('vaccName').touched">
+                <small *ngIf="vaccinationForm.get('vaccName').errors?.required" class="text-danger">Please enter name of the vaccine</small>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <button type="submit" [disabled]="vaccinationForm.invalid" class="btn btn-primary float-center">VACCINATE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

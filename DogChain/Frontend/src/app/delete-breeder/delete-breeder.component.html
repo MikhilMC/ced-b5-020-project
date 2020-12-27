@@ -12,7 +12,7 @@
           <div *ngIf="isAvailable">
             <p>Do you really want to delete <strong>{{nameInCaps}}</strong>?</p>
             <div class="w-50 mx-auto mt-3">
-              <button class="btn btn-danger mr-2" (click)="deleteBreeder(userId)">Yes</button>
+              <button class="btn btn-danger mr-2" (click)="deleteBreeder()">Yes</button>
               <button class="btn btn-success ml-2" (click)="gotoBreedersPage()">No</button>
             </div>
           </div>

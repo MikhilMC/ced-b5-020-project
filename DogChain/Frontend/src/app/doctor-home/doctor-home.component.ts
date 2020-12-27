@@ -7,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorHomeComponent implements OnInit {
 
-  userId: Number;
+  doctorId: Number;
   
   constructor() { }
 
   ngOnInit(): void {
-    this.userId = Number(localStorage.getItem('userId'));
+    this.doctorId = Number(localStorage.getItem('doctorId'));
   }
 
 }

@@ -4,7 +4,7 @@ var DoctorData = require('../models/DoctorData');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-  DoctorData.find({hasAddedToBlockchain: false}, null, {sort: 'userId'}, (error, doctors) => {
+  DoctorData.find({hasAddedToBlockchain: false}, null, {sort: 'doctorId'}, (error, doctors) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
         res.send({msg: "There are no unapproved doctors."})
       } else {
         console.log(doctors);
-        res.status(200).send(doctors);        
+        res.status(200).send(doctors);
       }
     }
   });

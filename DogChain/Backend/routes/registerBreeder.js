@@ -4,7 +4,7 @@ var BreederData = require('../models/BreederData');
 var router = express.Router();
 
 router.post('/', function(req, res) {
-  BreederData.findOne({ userId: req.body.userId }, (err1, user1) => {
+  BreederData.findOne({ breederId: req.body.userId }, (err1, user1) => {
     if (err1) {
       console.log(err1);
       res.status(401).send(err1);
@@ -22,8 +22,13 @@ router.post('/', function(req, res) {
               console.log("Email is already used by another user");
               res.send({ msg: "Email is already used by another user" });
             } else {
-              let userData = req.body;
+              let userData = {};
+              userData['breederId'] = req.body.userId;
+              userData['name'] = req.body.name;
+              userData['email'] = req.body.email;
+              userData['password'] = req.body.password;
               userData['hasAddedToBlockchain'] = false;
+              console.log(userData);
               let user = new BreederData(userData);
               user.save((err3, signedupUser) => {
                 if (err3) {

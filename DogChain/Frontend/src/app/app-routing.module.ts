@@ -32,6 +32,12 @@ import { ApproveOwnershipTransferComponent } from "./approve-ownership-transfer/
 import { TotalDogsComponent } from "./total-dogs/total-dogs.component";
 import { SoldDogsComponent } from "./sold-dogs/sold-dogs.component";
 import { CurrentDogsComponent } from "./current-dogs/current-dogs.component";
+import { DogVaccinationsComponent } from "./dog-vaccinations/dog-vaccinations.component";
+import { DogTreatmentsComponent } from "./dog-treatments/dog-treatments.component";
+import { VaccinateDogComponent } from "./vaccinate-dog/vaccinate-dog.component";
+import { TreatDogComponent } from "./treat-dog/treat-dog.component";
+import { TotalVaccinatedDogsComponent } from "./total-vaccinated-dogs/total-vaccinated-dogs.component";
+import { TotalTreatedDogsComponent } from "./total-treated-dogs/total-treated-dogs.component";
 
 
 const routes: Routes = [
@@ -87,7 +93,7 @@ const routes: Routes = [
     component: DoctorsApprovalComponent
   },
   {
-    path: "dog-birth-registration/:userId",
+    path: "dog-birth-registration/:breederId",
     component: DogBirthRegistrationComponent,
     pathMatch: "full"
   },
@@ -96,7 +102,7 @@ const routes: Routes = [
     component: DogBirthRegistrationApprovalComponent
   },
   {
-    path: "dog-ownership-transfer/:userId",
+    path: "dog-ownership-transfer/:dogId",
     component: DogOwnershipTransferComponent,
     pathMatch: "full"
   },
@@ -117,12 +123,12 @@ const routes: Routes = [
     component: DogsListComponent
   },
   {
-    path: "breeder/:userId",
+    path: "breeder/:breederId",
     component: SingleBreederComponent,
     pathMatch: "full"
   },
   {
-    path: "doctor/:userId",
+    path: "doctor/:docorId",
     component: SingleDoctorComponent,
     pathMatch: "full"
   },
@@ -132,12 +138,12 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "delete-breeder/:userId",
+    path: "delete-breeder/:breederId",
     component: DeleteBreederComponent,
     pathMatch: "full"
   },
   {
-    path: "delete-doctor/:userId",
+    path: "delete-doctor/:doctorId",
     component: DeleteDoctorComponent,
     pathMatch: "full"
   },
@@ -152,12 +158,12 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "approve-breeder/:userId",
+    path: "approve-breeder/:breederId",
     component: ApproveBreederComponent,
     pathMatch: "full"
   },
   {
-    path: "approve-doctor/:userId",
+    path: "approve-doctor/:doctorId",
     component: ApproveDoctorComponent,
     pathMatch: "full"
   },
@@ -172,18 +178,48 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "total-dogs/:userId",
+    path: "total-dogs/:breederId",
     component: TotalDogsComponent,
     pathMatch: "full"
   },
   {
-    path: "sold-dogs/:userId",
+    path: "sold-dogs/:breederId",
     component: SoldDogsComponent,
     pathMatch: "full"
   },
   {
-    path: "current-dogs/:userId",
+    path: "current-dogs/:breederId",
     component: CurrentDogsComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "dog-vaccination/:dogId",
+    component: DogVaccinationsComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "dog-treatment/:dogId",
+    component: DogTreatmentsComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "vaccinate-dog/:doctorId",
+    component: VaccinateDogComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "treat-dog/:doctorId",
+    component: TreatDogComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "total-vaccinated-dogs/:doctorId",
+    component: TotalVaccinatedDogsComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "total-treated-dogs/:doctorId",
+    component: TotalTreatedDogsComponent,
     pathMatch: "full"
   }
 ];

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { FormBuilder, Validators, ɵangular_packages_forms_forms_b} from "@angular/forms";
+import { FormBuilder, Validators} from "@angular/forms";
 
 import { AuthService } from "../auth.service";
 import { LoginDataModel } from "./login.data.model";
@@ -15,21 +15,9 @@ export class LoginUserComponent implements OnInit {
   accountType: String;
   account: String;
 
-  loggedUser = this._fb.group({
-    email: [
-      '',
-      [
-        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
-        Validators.required
-      ]
-    ],
-    password: [
-      '',
-      [
-        Validators.minLength(3),
-        Validators.required
-      ]
-    ]
+  loginForm = this._fb.group({
+    email: ['',[Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+    password: ['', [Validators.required, Validators.minLength(3)]]
   });
 
   constructor(
@@ -50,7 +38,7 @@ export class LoginUserComponent implements OnInit {
   loginData = new LoginDataModel(null, null);
 
   loginUser(): void {
-    this.loginData = this.loggedUser.value;
+    this.loginData = this.loginForm.value;
     // console.log(this.loginData);
     this._auth.loginUser(this.loginData, this.accountType).subscribe(result => {
       console.log(result);
@@ -62,16 +50,16 @@ export class LoginUserComponent implements OnInit {
       } else {
         if (this.accountType === 'breeder' || this.accountType === 'doctor') {
           if (!result["hasAddedToBlockchain"]) {
-            this._router.navigate(['primary-message'], { queryParams: { message: "Sorry, the approval process of your account haven't been completed yet. Please check after sometime" } });
+            this._router.navigate(['primary-message'], { queryParams: { message: "Sorry, your account haven't been approved yet. Either the process is not completed yet, or your account have been rejected. Please check after sometime." } });
           } else {
             if (this.accountType === 'breeder') {
               this._router.navigate(['/breeder-home']);
               // localStorage.setItem('userType','breeder');
-              localStorage.setItem('userId',result['userId']);
+              localStorage.setItem('breederId',result['breederId']);
             } else {
               this._router.navigate(['/doctor-home']);
               // localStorage.setItem('userType','doctor');
-              localStorage.setItem('userId',result['userId']);
+              localStorage.setItem('doctorId',result['doctorId']);
             }
           }
         } else {

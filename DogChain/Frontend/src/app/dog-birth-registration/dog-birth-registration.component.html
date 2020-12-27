@@ -1,6 +1,6 @@
 <div class="py-5">
   <div class="row">
-    <div class="col-md-10 mx-auto">
+    <div class="col-md-6 mx-auto">
       <span class="anchor" id="registerForm"></span>
 
       <div class="card text-center rounded">
@@ -10,64 +10,81 @@
           </div>
         </div>
         <div class="card-body">
-          <form class="form" [formGroup]="registeredDog" (ngSubmit)="registerDog()">
-            <div class="row">
-              <div class="form-group row col-md-6">
-                <label for="dogId" class="col-md-3 pt-1">Dog Id</label>
-                <input type="number" class="form-control rounded-0 col-md-9" formControlName="dogId" name="dogId">
+          <form class="form" [formGroup]="birthRegisterForm" (ngSubmit)="registerDog()">
+            <div class="form-group row">
+              <label for="dogId" class="col-md-3 pt-1">Dog ID</label>
+              <input type="number" [class.is-invalid]="birthRegisterForm.get('dogId').invalid && birthRegisterForm.get('dogId').touched" class="form-control rounded-0 col-md-8" formControlName="dogId" name="dogId">
+              <div class="float-center" *ngIf="birthRegisterForm.get('dogId').invalid && birthRegisterForm.get('dogId').touched">
+                <small *ngIf="birthRegisterForm.get('dogId').errors?.required" class="text-danger">Please enter ID of the dog</small>
+                <small *ngIf="birthRegisterForm.get('dogId').errors?.pattern" class="text-danger">Enter correct dog ID</small>
               </div>
-              <div class="form-group row col-md-6">
-                <label for="dogName" class="col-md-3 pt-1">Dog Name</label>
-                <input type="text" class="form-control rounded-0 col-md-9" formControlName="dogName" name="dogName">
-              </div>              
             </div>
-            <div class="row">
-              <div class="form-group row col-md-6">
-                <label for="breed" class="col-md-3 pt-1">Breed</label>
-                <input type="text" class="form-control rounded-0 col-md-9" formControlName="breed" name="breed">
+            <div class="form-group row">
+              <label for="dogName" class="col-md-3 pt-1">Dog Name</label>
+              <input type="text" [class.is-invalid]="birthRegisterForm.get('dogName').invalid && birthRegisterForm.get('dogName').touched" class="form-control rounded-0 col-md-8" formControlName="dogName" name="dogName">
+              <div class="float-center" *ngIf="birthRegisterForm.get('dogName').invalid && birthRegisterForm.get('dogName').touched">
+                <small *ngIf="birthRegisterForm.get('dogName').errors?.required" class="text-danger">Please enter name of the dog</small>
               </div>
-              <div class="form-group row col-md-6">
-                <label for="colour" class="col-md-3 pt-1">Colour</label>
-                <input type="text" class="form-control rounded-0 col-md-9" formControlName="colour" name="colour">
-              </div>              
+            </div>            
+            <div class="form-group row">
+              <label for="breed" class="col-md-3 pt-1">Breed</label>
+              <input type="text" [class.is-invalid]="birthRegisterForm.get('breed').invalid && birthRegisterForm.get('breed').touched" class="form-control rounded-0 col-md-8" formControlName="breed" name="breed">
+              <div *ngIf="birthRegisterForm.get('breed').invalid && birthRegisterForm.get('breed').touched">
+                <small *ngIf="birthRegisterForm.get('breed').errors?.required" class="text-danger">Please enter breed of the dog</small>
+              </div>
             </div>
-            <div class="row">
-              <div class="form-group row col-md-6">
-                <label for="sex" class="col-md-3 pt-1">Sex</label>
-                <div class="form-check form-check-inline col-md-3 pb-1">
-                  <input class="form-control form-check-input" type="radio" formControlName="sex" name="sex" value="dog">
-                  <label class="form-check-label" for="dog">Dog</label>
-                </div>
-                <div class="form-check form-check-inline col-md-3 pb-1">
-                  <input class="form-control form-check-input" type="radio" formControlName="sex" name="sex" value="bitch">
-                  <label class="form-check-label" for="bitch">Bitch</label>
-                </div>
+            <div class="form-group row">
+              <label for="colour" class="col-md-3 pt-1">Colour</label>
+              <input type="text" [class.is-invalid]="birthRegisterForm.get('colour').invalid && birthRegisterForm.get('colour').touched" class="form-control rounded-0 col-md-8" formControlName="colour" name="colour">
+              <div *ngIf="birthRegisterForm.get('colour').invalid && birthRegisterForm.get('colour').touched">
+                <small *ngIf="birthRegisterForm.get('colour').errors?.required" class="text-danger">Please enter colour of the dog</small>
               </div>
-              <div class="form-group row col-md-6">
-                <label for="colour" class="col-md-3 pt-1">Date of Birth</label>
-                <input type="date" class="form-control rounded-0 col-md-9" formControlName="dob" name="dob">
-              </div>              
             </div>
-            <div class="row">
-              <div class="form-group row col-md-6">
-                <label for="fatherId" class="col-md-3 pt-1">Father's ID</label>
-                <input type="number" class="form-control rounded-0 col-md-9" formControlName="fatherId" name="fatherId">
+            <div class="form-group row">
+              <label for="sex" class="col-md-3 pt-1">Sex</label>
+              <div class="form-check form-check-inline col-md-4 pb-1">
+                <input class="form-control form-check-input" [class.is-invalid]="birthRegisterForm.get('sex').invalid && birthRegisterForm.get('sex').touched" type="radio" formControlName="sex" name="sex" value="dog">
+                <label class="form-check-label" for="dog">Dog (Male dog)</label>
               </div>
-              <div class="form-group row col-md-6">
-                <label for="motherId" class="col-md-3 pt-1">Mother's ID</label>
-                <input type="number" class="form-control rounded-0 col-md-9" formControlName="motherId" name="motherId">
-              </div>              
+              <div class="form-check form-check-inline col-md-4 pb-1">
+                <input class="form-control form-check-input" [class.is-invalid]="birthRegisterForm.get('sex').invalid && birthRegisterForm.get('sex').touched" type="radio" formControlName="sex" name="sex" value="bitch">
+                <label class="form-check-label" for="bitch">Bitch (Female dog)</label>
+              </div>
+              <div *ngIf="birthRegisterForm.get('sex').invalid && birthRegisterForm.get('sex').touched">
+                <small *ngIf="birthRegisterForm.get('sex').errors?.required" class="text-danger">Please enter sex of the dog</small>
+              </div>
             </div>
-            <div class="row">
-              <div class="form-group row col-md-6">
-                <label class="text-danger ml-5">If the Father is not registerd in the system, please enter 0</label>
+            <div class="form-group row">
+              <label for="dob" class="col-md-3 pt-1">Date of Birth</label>
+              <input type="date" [class.is-invalid]="birthRegisterForm.get('dob').invalid && birthRegisterForm.get('dob').touched" class="form-control rounded-0 col-md-8" formControlName="dob" name="dob">
+              <div *ngIf="birthRegisterForm.get('dob').invalid && birthRegisterForm.get('dob').touched">
+                <small *ngIf="birthRegisterForm.get('dob').errors?.required" class="text-danger">Please enter date of birth of the dog</small>
               </div>
-              <div class="form-group row col-md-6">
-                <label class="text-danger ml-5">If the Mother is not registerd in the system, please enter 0</label>
-              </div>              
+            </div>
+            <div class="form-group row">
+              <label for="typeOfParents" class="col-md-3 pt-1">Type of Parents</label>
+              <!-- <input type="date" class="form-control rounded-0 col-md-9" formControlName="dob" name="dob"> -->
+              <select [class.is-invalid]="birthRegisterForm.get('typeOfParents').invalid && birthRegisterForm.get('typeOfParents').touched" (change)="onChange($event.target.value)" name="typeOfParents" id="typeOfParents" class="form-control col-md-8" formControlName="typeOfParents">
+                <option value="select" selected disabled>select an option</option>
+                <option value="knownParents">Both parents are registered</option>
+                <option value="unknownMother">Only the father is registered</option>
+                <option value="unknownFather">Only the mother is registered</option>
+                <option value="unknownParents">Both parents are unregistered</option>
+              </select>
+              <div *ngIf="birthRegisterForm.get('typeOfParents').invalid && birthRegisterForm.get('typeOfParents').touched">
+                <small *ngIf="birthRegisterForm.get('typeOfParents').errors?.required" class="text-danger">Please enter type of parents of the dog</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="fatherId" class="col-md-3 pt-1">Father's ID</label>
+              <input type="number" [readonly]="!isFatherRegistered" class="form-control rounded-0 col-md-8" formControlName="fatherId" name="fatherId">
+            </div>
+            <div class="form-group row">
+              <label for="motherId" class="col-md-3 pt-1">Mother's ID</label>
+              <input type="number" [readonly]="!isMotherRegistered" class="form-control rounded-0 col-md-8" formControlName="motherId" name="motherId">
             </div>
             <div class="form-group mb-0">
-              <button type="submit" class="btn btn-primary float-center">REGISTER</button>
+              <button type="submit" [disabled]="birthRegisterForm.invalid" class="btn btn-primary float-center">REGISTER</button>
             </div>
           </form>
         </div>

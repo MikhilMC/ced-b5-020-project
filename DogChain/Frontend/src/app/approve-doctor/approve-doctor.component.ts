@@ -9,7 +9,7 @@ import { AuthorityService } from '../authority.service';
 })
 export class ApproveDoctorComponent implements OnInit {
 
-  userId: Number;
+  doctorId: Number;
   name: String;
   nameInCaps: String;
   isAvailable: Boolean;
@@ -22,15 +22,16 @@ export class ApproveDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this._actRoute.paramMap.subscribe(params => {
-      this.userId = Number(params.get('userId'));
-      console.log(this.userId);
-      this._authority.getUnapprovedDoctor(this.userId).subscribe(user => {
-        if (user.hasOwnProperty('msg')) {
+      this.doctorId = Number(params.get('doctorId'));
+      console.log(this.doctorId);
+      this._authority.getUnapprovedDoctor(this.doctorId)
+      .subscribe(doctor => {
+        if (doctor.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
           this.isAvailable = true;
-          console.log(user);
-          this.name = user['name'];
+          console.log(doctor);
+          this.name = doctor['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
       });
@@ -38,9 +39,10 @@ export class ApproveDoctorComponent implements OnInit {
   }
 
   approveDoctor() {
-    let data = {userId: this.userId}
+    let data = {doctorId: this.doctorId}
     // console.log(data);
-    this._authority.approveDoctor(data).subscribe(result => {
+    this._authority.approveDoctor(data)
+    .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-doctors']);      
     });

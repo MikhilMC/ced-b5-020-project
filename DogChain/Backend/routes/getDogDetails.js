@@ -20,6 +20,16 @@ router.get('/:dogId', (req, res) => {
         dogData['sex'] = 'bitch'
       }
       dogData['dob'] = web3.utils.hexToAscii(dog.dateOfBirth).replace(/\u0000/gi, '');
+      let t1 = new Date(Date.now());
+      let t2 = new Date(dogData.dob);
+      ageInYears = t1.getFullYear() - t2.getFullYear();
+      ageInMonths = t1.getMonth() - t2.getMonth();
+      if (ageInMonths < 0 || ageInMonths === 0) {
+        ageInYears--;
+        ageInMonths = 12 + t1.getMonth() - t2.getMonth();
+      }
+      dogData['ageInYears'] = ageInYears;
+      dogData['ageInMonths'] = ageInMonths;
       dogData['fatherId'] = dog.fatherId;
       dogData['fatherName'] = web3.utils.hexToAscii(dog.fatherName).replace(/\u0000/gi, '');
       dogData['motherId'] = dog.motherId;

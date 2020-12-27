@@ -3,9 +3,9 @@ var BreederData = require('../models/BreederData');
 
 var router = express.Router();
 
-router.get('/:userId', (req, res) => {
+router.get('/:breederId', (req, res) => {
   console.log(req.params.userId);
-  BreederData.findOne({userId: req.params.userId, hasAddedToBlockchain: false}, (error, user) => {
+  BreederData.findOne({breederId: req.params.breederId, hasAddedToBlockchain: false}, (error, user) => {
     if (error) {
       console.log(error);
       res.status(401).send(error)

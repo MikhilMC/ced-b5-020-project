@@ -44,6 +44,9 @@ var getSoldDogs = require('./routes/getSoldDogs');
 var getCurrentDogs = require('./routes/getCurrentDogs');
 var getDogDetails = require('./routes/getDogDetails');
 
+var vaccinateDog = require('./routes/vaccinateDog');
+
+var hasAlreadySubmittedOwnershipTransfer = require('./routes/hasAlreadySubmittedOwnershipTransfer');
 var dogOwnershipTransfer = require('./routes/dogOwnershipTransfer');
 
 var MyContractJSON = require(path.join(__dirname, "build/contracts/DogChain.json"));
@@ -95,7 +98,7 @@ app.use('/login-authority', loginAuthority);
 app.use('/unapproved-breeders', unapprovedBreeders);
 app.use('/unapproved-doctors', unapprovedDoctors);
 app.use('/unapproved-dog-registrations', unapprovedDogRegistrations);
-app.use('/unapproved-ownership-transfers', unapprovedOwnershipTransfers);
+app.use('/unapproved-dog-ownership-transfers', unapprovedOwnershipTransfers);
 
 app.use('/delete-breeder', deleteBreeder);
 app.use('/delete-doctor', deleteDoctor);
@@ -105,7 +108,7 @@ app.use('/delete-ownership-transfer', deleteOwnershipTransfer);
 app.use('/get-unapproved-breeder', getUnapprovedBreeder);
 app.use('/get-unapproved-doctor', getUnapprovedDoctor);
 app.use('/get-unapproved-dog-registration', getUnapprovedDogRegistration);
-app.use('/get-unapproved-ownership-transfer', getUnapprovedOwnershipTransfer);
+app.use('/get-unapproved-dog-ownership-transfer', getUnapprovedOwnershipTransfer);
 
 app.use('/approve-breeder', approveBreeder);
 app.use('/approve-doctor', approveDoctor);
@@ -122,6 +125,9 @@ app.use('/get-sold-dogs', getSoldDogs);
 app.use('/get-current-dogs', getCurrentDogs);
 app.use('/get-dog-details', getDogDetails);
 
+app.use('/has-already-submitted-ownership-transfer', hasAlreadySubmittedOwnershipTransfer);
 app.use('/dog-ownership-transfer', dogOwnershipTransfer);
+
+app.use('/vaccinate-dog', vaccinateDog);
 
 module.exports = app;

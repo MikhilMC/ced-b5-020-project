@@ -37,8 +37,8 @@ export class DeleteDogRegistrationComponent implements OnInit {
     });
   }
 
-  deleteDogBirthRegistration(_dogId) {
-    this._authority.deleteDogRegistration(_dogId)
+  deleteDogBirthRegistration() {
+    this._authority.deleteDogRegistration(this.dogId)
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-dog-birth-registrations'])

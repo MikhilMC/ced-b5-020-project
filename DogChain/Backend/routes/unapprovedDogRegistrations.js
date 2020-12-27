@@ -9,8 +9,12 @@ router.get('/', (req, res) => {
       console.log(error);
       res.status(401).send(error);
     } else {
-      console.log(dogs);
-      res.status(200).send(dogs);
+      if (!dogs) {
+        res.send({msg: "There are no unapproved dog birth registrations."})
+      } else {
+        console.log(dogs);
+        res.status(200).send(dogs);
+      }
     }
   });
 });

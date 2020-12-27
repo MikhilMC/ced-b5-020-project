@@ -3,9 +3,9 @@ var DoctorData = require('../models/DoctorData');
 
 var router = express.Router();
 
-router.get('/:userId', (req, res) => {
+router.get('/:doctorId', (req, res) => {
   console.log(req.params.dogId);
-  DoctorData.findOne({userId: req.params.userId, hasAddedToBlockchain: false}, (error, user) => {
+  DoctorData.findOne({doctorId: req.params.doctorId, hasAddedToBlockchain: false}, (error, user) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);

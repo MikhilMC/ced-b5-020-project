@@ -24,7 +24,14 @@ router.post('/', function(req, res) {
               console.log("Email is already used by another user");
               res.send({ msg: "Email is already used by another user" });
             } else {
-              let userData = req.body;
+              let userData = {};
+              userData['doctorId'] = req.body.userId;
+              userData['name'] = req.body.name;
+              userData['email'] = req.body.email;
+              userData['hospital'] = req.body.hospital;
+              userData['password'] = req.body.password;
+              userData['hasAddedToBlockchain'] = false;
+              console.log(userData);
               userData.hasAddedToBlockchain = false;
               console.log(userData);
               let user = new DoctorData(userData);

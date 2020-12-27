@@ -1,13 +1,10 @@
 var express = require('express');
-const { default: Web3 } = require('web3');
 var AuthorityData = require('../models/AuthorityData');
 
 var router = express.Router();
 
 router.post('/', function(req, res) {
-  // data = req.body;
-  // console.log(data);
-  AuthorityData.findOne({ userId: req.body.userId }, (err1, user1) => {
+  AuthorityData.findOne({ authorityId: req.body.userId }, (err1, user1) => {
     if (err1) {
       console.log(err1);
       res.status(401).send(err1);
@@ -25,7 +22,13 @@ router.post('/', function(req, res) {
               console.log("Email is already used by another user");
               res.send({ msg: "Email is already used by another user" });
             } else {
-              let userData = req.body;
+              // let userData = req.body;
+              let userData = {};
+              userData['authorityId'] = req.body.userId;
+              userData['name'] = req.body.name;
+              userData['email'] = req.body.email;
+              userData['password'] = req.body.password;
+              console.log(userData);
               let user = new AuthorityData(userData);
               user.save((err3, signedupUser) => {
                 if (err3) {
@@ -35,12 +38,16 @@ router.post('/', function(req, res) {
                   console.log(signedupUser);
                   // res.status(200).send({signedupUser});
                   web3.eth.getAccounts()
-                  .then((accounts) => {
-                    MyContract.methods.registerAuthority(signedupUser.userId, web3.utils.fromAscii(signedupUser.name))
+                  .then(accounts => {
+                    MyContract.methods.registerAuthority(signedupUser.authorityId, web3.utils.fromAscii(signedupUser.name))
                     .send({ from: accounts[0]})
                     .then((txn) => {
                       console.log(txn);
-                      res.send(txn);
+                      res.status(200).send({txn, authorityUser: signedupUser});
+                    })
+                    .catch(error => {
+                      console.log(error);
+                      res.status(401).send(error);
                     });
                   });
                 }

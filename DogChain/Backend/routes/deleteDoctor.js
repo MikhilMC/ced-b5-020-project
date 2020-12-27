@@ -3,8 +3,8 @@ var DoctorData = require('../models/DoctorData');
 
 var router = express.Router();
 
-router.delete('/:userId', (req, res) => {
-  DoctorData.findOneAndDelete({ userId: req.params.userId }, (error, doc) => {
+router.delete('/:doctorId', (req, res) => {
+  DoctorData.findOneAndDelete({ doctorId: req.params.doctorId }, (error, doc) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);

@@ -44,6 +44,12 @@ import { ApproveOwnershipTransferComponent } from './approve-ownership-transfer/
 import { TotalDogsComponent } from './total-dogs/total-dogs.component';
 import { SoldDogsComponent } from './sold-dogs/sold-dogs.component';
 import { CurrentDogsComponent } from './current-dogs/current-dogs.component';
+import { DogVaccinationsComponent } from './dog-vaccinations/dog-vaccinations.component';
+import { DogTreatmentsComponent } from './dog-treatments/dog-treatments.component';
+import { VaccinateDogComponent } from './vaccinate-dog/vaccinate-dog.component';
+import { TreatDogComponent } from './treat-dog/treat-dog.component';
+import { TotalVaccinatedDogsComponent } from './total-vaccinated-dogs/total-vaccinated-dogs.component';
+import { TotalTreatedDogsComponent } from './total-treated-dogs/total-treated-dogs.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +86,13 @@ import { CurrentDogsComponent } from './current-dogs/current-dogs.component';
     ApproveOwnershipTransferComponent,
     TotalDogsComponent,
     SoldDogsComponent,
-    CurrentDogsComponent
+    CurrentDogsComponent,
+    DogVaccinationsComponent,
+    DogTreatmentsComponent,
+    VaccinateDogComponent,
+    TreatDogComponent,
+    TotalVaccinatedDogsComponent,
+    TotalTreatedDogsComponent
   ],
   imports: [
     BrowserModule,

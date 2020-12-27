@@ -10,7 +10,7 @@ import { AuthorityService } from "../authority.service";
 })
 export class ApproveBreederComponent implements OnInit {
 
-  userId: Number;
+  breederId: Number;
   name: String;
   nameInCaps: String;
   isAvailable: Boolean;
@@ -23,15 +23,16 @@ export class ApproveBreederComponent implements OnInit {
 
   ngOnInit(): void {
     this._actRoute.paramMap.subscribe(params => {
-      this.userId = Number(params.get('userId'));
-      console.log(this.userId);
-      this._authority.getUnapprovedBreeder(this.userId).subscribe(user => {
-        if (user.hasOwnProperty('msg')) {
+      this.breederId = Number(params.get('breederId'));
+      console.log(this.breederId);
+      this._authority.getUnapprovedBreeder(this.breederId)
+      .subscribe(breeder => {
+        if (breeder.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
           this.isAvailable = true;
-          console.log(user);
-          this.name = user['name'];
+          console.log(breeder);
+          this.name = breeder['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
       });
@@ -39,8 +40,9 @@ export class ApproveBreederComponent implements OnInit {
   }
 
   approveBreeder() {
-    const data = {userId: this.userId};
-    this._authority.approveBreeder(data).subscribe(result => {
+    const data = {breederId: this.breederId};
+    this._authority.approveBreeder(data)
+    .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-breeders']);
     });

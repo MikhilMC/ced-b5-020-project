@@ -4,7 +4,7 @@ var BreederData = require('../models/BreederData');
 var router = express.Router();
 
 router.get('/', (req, res) => {
-  BreederData.find({hasAddedToBlockchain: false}, null, {sort: 'userId'}, (error, breeders) => {
+  BreederData.find({hasAddedToBlockchain: false}, null, {sort: 'breederId'}, (error, breeders) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);

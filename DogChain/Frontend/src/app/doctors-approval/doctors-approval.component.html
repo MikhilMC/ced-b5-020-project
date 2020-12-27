@@ -13,18 +13,18 @@
             <table class="table table-bordered table-md">
               <thead class="bg-primary text-light">
                 <tr>
-                  <th>USER ID</th>
+                  <th>DOCTOR ID</th>
                   <th>NAME</th>
                   <th>ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let doctor of unapprovedDoctors">
-                  <td>{{ doctor['userId'] }}</td>
+                  <td>{{ doctor['doctorId'] }}</td>
                   <td>{{ doctor['name'] }}</td>
                   <td>
-                    <a class="btn btn-success mr-1" [routerLink]="['/approve-doctor', doctor['userId']]">APPROVE</a>
-                    <a class="btn btn-danger ml-1" [routerLink]="['/delete-doctor', doctor['userId']]">DELETE</a>
+                    <a class="btn btn-success mr-1" [routerLink]="['/approve-doctor', doctor['doctorId']]">APPROVE</a>
+                    <a class="btn btn-danger ml-1" [routerLink]="['/delete-doctor', doctor['doctorId']]">DELETE</a>
                   </td>
                 </tr>
               </tbody>

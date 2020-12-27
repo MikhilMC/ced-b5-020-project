@@ -3,9 +3,9 @@ var BreederData = require('../models/BreederData');
 
 var router = express.Router();
 
-router.delete('/:userId', (req, res) => {
+router.delete('/:breederId', (req, res) => {
   console.log(req.params.id);
-  BreederData.findOneAndDelete({ userId: req.params.userId }, (error, doc) => {
+  BreederData.findOneAndDelete({ breederId: req.params.breederId }, (error, doc) => {
     if (error) {
       console.log(error);
       res.status(401).send(error);

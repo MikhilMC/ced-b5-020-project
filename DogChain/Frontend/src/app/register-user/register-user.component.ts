@@ -15,33 +15,12 @@ export class RegisterUserComponent implements OnInit {
   accountType: String;
   account: String;
   isDoctor: Boolean;
-  registeredUser = this._fb.group({
-    userId: [
-      '',
-      [
-        Validators.pattern(/([0-9]+)/),
-        Validators.required
-      ]
-    ],
-    name: [
-      '',
-      Validators.required
-    ],
-    email: [
-      '',
-      [
-        Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/),
-        Validators.required
-      ]
-    ],
+  registerForm = this._fb.group({
+    userId: ['',[Validators.pattern(/([0-9]+)/), Validators.required]],
+    name: ['', Validators.required],
+    email: ['', [Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), Validators.required]],
     hospital: [''],
-    password: [
-      '',
-      [
-        Validators.minLength(3),
-        Validators.required
-      ]
-    ]
+    password: ['', [Validators.minLength(3), Validators.required]]
   });
 
   constructor(
@@ -69,9 +48,10 @@ export class RegisterUserComponent implements OnInit {
   }
 
   registerUser(): void {
-    this.registerData = this.registeredUser.value;
+    this.registerData = this.registerForm.value;
     console.log(this.registerData);
-    this._auth.registerUser(this.registerData, this.accountType).subscribe((result)=>{
+    this._auth.registerUser(this.registerData, this.accountType)
+    .subscribe((result)=>{
       // console.log(result);
       if ("msg" in result) {
         alert(result["msg"]);

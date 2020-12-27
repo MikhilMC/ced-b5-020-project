@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 DogOwnershipTransferSchema = new Schema({
   dogId: {type: Number},
-  oldOwnerId: {type: Number},
+  currentOwnerId: {type: Number},
   newOwnerId: {type: Number},
   hasAddedToBlockchain: {type: Boolean}
 });

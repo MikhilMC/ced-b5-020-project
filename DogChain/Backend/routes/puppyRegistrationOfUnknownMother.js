@@ -7,7 +7,7 @@ var router = express.Router();
 router.post('/', (req, res) => {
   // console.log(req.body);
   dogData = req.body;
-  DogBirthRegisterData.findOne({userId: dogData['dogId']}, (error1, dog1)=>{
+  DogBirthRegisterData.findOne({dogId: dogData['dogId'], hasAddedToBlockchain: false}, (error1, dog1)=>{
     if (error1) {
       console.log(error1);
       res.status(401).send(error1);
@@ -16,14 +16,14 @@ router.post('/', (req, res) => {
         console.log('This dog is already registered');
         res.send({msg: 'This dog is already registered'});
       } else {
-        DogBirthRegisterData.findOne({userId: dogData['fatherId'], hasAddedToBlockchain: true}, (error2, dog2)=>{
+        DogBirthRegisterData.findOne({dogId: dogData['fatherId'], hasAddedToBlockchain: true}, (error2, dog2)=>{
           if (error2) {
             console.log(error2);
             res.status(401).send(error2);
           } else {
             if (!dog2) {
-              console.log("The father of your dog is not registered in the system. Please check the father's ID");
-              res.send({msg: "The father of your dog is not registered in the system. Please check the father's ID"});
+              console.log("The father of your dog is not registered/approved in the system. Please check the father's ID");
+              res.send({msg: "The father of your dog is not registered/approved in the system. Please check the father's ID"});
             } else {
               dogData['hasAddedToBlockchain'] = false;
               dog = new DogBirthRegisterData(dogData);

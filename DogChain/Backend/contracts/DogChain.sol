@@ -35,8 +35,8 @@ contract DogChain{
         bytes32[] hospitalNames;
         uint currentHospital;
         bool exists;
-        uint[] vaccinatedDogs;
-        uint[] treatedDogs;
+        uint[] vaccinationRecordIds;
+        uint[] treatmentRecordIds;
     }
     
     struct authority{
@@ -70,6 +70,8 @@ contract DogChain{
         bool exists;
     }
     
+    mapping ( uint => mapping ( uint => bool) ) private allSoldDogs;
+    
     mapping ( uint => dog ) private kennelClub;
     mapping ( uint => breeder ) private breeders;
     mapping ( uint => doctor ) private doctors;
@@ -98,30 +100,97 @@ contract DogChain{
         return kennelClubAuthority[_authId];
     }
     
-    function getAllBreeders() public view returns (breeder[] memory) {
-        breeder[] memory breedersList;
-        for(uint i = 0; i < breederUsers.length; i++) {
-            breedersList[i] = breeders[breederUsers[i]];
-        }
-        return breedersList;
+    function getAllBreeders() public view returns (uint[] memory) {
+        return breederUsers;
     }
     
-    function getAllDoctors() public view returns (doctor[] memory) {
-        doctor[] memory doctorsList;
-        for(uint i = 0; i < doctorUsers.length; i++) {
-            doctorsList[i] = doctors[doctorUsers[i]];
-        }
-        return doctorsList;
+    function getAllDoctors() public view returns (uint[] memory) {
+        return doctorUsers;
     }
     
-    function getAllDogs() public view returns (dog[] memory) {
-        dog[] memory dogsList;
-        for(uint i = 0; i < dogs.length; i++) {
-            dogsList[i] = kennelClub[dogs[i]];
-        }
-        return dogsList;
+    function getAllDogs() public view returns (uint[] memory) {
+        return dogs;
     }
     
+    function getBreedersList(uint[] memory _breederIds) public view returns (breeder[] memory) {
+        breeder[] memory _breeders = new breeder[](_breederIds.length);
+        for(uint i = 0; i < _breederIds.length; i++) {
+            _breeders[i] = breeders[_breederIds[i]];
+        }
+        return _breeders;
+    }
+    
+    function getDoctorsList(uint[] memory _docIds) public view returns (doctor[] memory) {
+        doctor[] memory _doctors = new doctor[](_docIds.length);
+        for(uint i = 0; i < _docIds.length; i++) {
+            _doctors[i] = doctors[_docIds[i]];
+        }
+        return _doctors;
+    }
+    
+    function getDogsList(uint[] memory _dogIds) public view returns (dog[] memory) {
+        dog[] memory _dogs = new dog[](_dogIds.length);
+        for(uint i = 0; i < _dogIds.length; i++) {
+            _dogs[i] = kennelClub[_dogIds[i]];
+        }
+        return _dogs;
+    }
+    
+    function getVaccinesList(uint[] memory _vaccIds) public view returns (vaccine[] memory) {
+        vaccine[] memory _vaccines = new vaccine[](_vaccIds.length);
+        for(uint i = 0; i < _vaccIds.length; i++) {
+            _vaccines[i] = vaccinationRecord[_vaccIds[i]];
+        }
+        return _vaccines;
+    }
+    
+    function getTreatmentList(uint[] memory _treatIds) public view returns (treatment[] memory) {
+        treatment[] memory _treatments = new treatment[](_treatIds.length);
+        for(uint i = 0; i < _treatIds.length; i++) {
+            _treatments[i] = treatmentRecord[_treatIds[i]];
+        }
+        return _treatments;
+    }
+    
+    function isBreederPresent(uint _breederId) public view returns(bool) {
+        if (breeders[_breederId].exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function isDoctorPresent(uint _docId) public view returns(bool) {
+        if (doctors[_docId].exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function isDogPresent(uint _dogId) public view returns(bool) {
+        if (kennelClub[_dogId].exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function isVaccineDataPresent(uint _vaccId) public view returns(bool) {
+        if (vaccinationRecord[_vaccId].exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    function isTreatmentDataPresent(uint _treatmentId) public view returns(bool) {
+        if (treatmentRecord[_treatmentId].exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     // BREEDER/OWNER FUNCTIONS
     
@@ -152,14 +221,20 @@ contract DogChain{
         return breeders[_breederId].soldDogIds;
     }
     
-    function getDogGroupDetails(uint[] memory _dogIds) public view returns(dog[] memory) {
-        //require(breeders[_breederId].exists, 'Breeder/Owner account does not exists.');
+    function getCurrentDogIds(uint _breederId) public view returns(uint[] memory) {
+        require(breeders[_breederId].exists, 'Breeder/Owner account does not exists.');
         
-        dog[] memory _dogs;
-        for(uint i = 0; i < _dogIds.length; i++) {
-            _dogs[i] = kennelClub[_dogIds[i]];
+        uint[] memory _currentDogIds = new uint[](getTotalDogIds(_breederId).length - getSoldDogIds(_breederId).length);
+        uint j = 0;
+        uint[] memory _totalDogs = getTotalDogIds(_breederId);
+        
+        for(uint i = 0; i < _totalDogs.length; i++) {
+            if (!allSoldDogs[_breederId][_totalDogs[i]]) {
+                _currentDogIds[j] = _totalDogs[i];
+                j++;
+            }
         }
-        return _dogs;
+        return _currentDogIds;
     }
     
     
@@ -181,6 +256,18 @@ contract DogChain{
         require(doctors[_docId].exists, "Doctor account does not exists.");
         
         return doctors[_docId];
+    }
+    
+    function getDoctorVaccinations(uint _docId) public view returns (uint[] memory) {
+        require(doctors[_docId].exists, "Doctor account does not exists.");
+        
+        return doctors[_docId].vaccinationRecordIds;
+    }
+    
+    function getDoctorTreatments(uint _docId) public view returns (uint[] memory) {
+        require(doctors[_docId].exists, "Doctor account does not exists.");
+        
+        return doctors[_docId].treatmentRecordIds;
     }
     
     function changeHospital(uint _docId, bytes32 _newHospitalName) public {
@@ -216,6 +303,10 @@ contract DogChain{
         uint _motherId,
         uint _breederId
     ) public {
+        require(_fatherId == 0 || kennelClub[_fatherId].exists, 'Dog account of the father does not exists.');
+        require(_motherId == 0 || kennelClub[_motherId].exists, 'Dog account of the mother does not exists.');
+        require(breeders[_breederId].exists, 'Breeder/Owner account does not exists.');
+        
         kennelClub[_dogId].dogName = _dogName;
         kennelClub[_dogId].breed = _breed;
         kennelClub[_dogId].colour = _colour;
@@ -241,6 +332,7 @@ contract DogChain{
         kennelClub[_dogId].currentOwner = 0;
         kennelClub[_dogId].exists = true;
         dogs.push(_dogId);
+        allSoldDogs[_breederId][_dogId] = false;
     }
     
     function getDogData(uint _dogId) public view returns (dog memory) {
@@ -249,61 +341,48 @@ contract DogChain{
         return kennelClub[_dogId];
     }
     
-    function sellDog(uint _dogId, uint _oldOwnerId, uint _newOwnerId) public {
+    function transferDogOwnership(uint _dogId, uint _currentOwnerId, uint _newOwnerId) public {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
-        require(breeders[_oldOwnerId].exists, 'Breeder/Owner account of current owner does not exists.');
+        require(breeders[_currentOwnerId].exists, 'Breeder/Owner account of current owner does not exists.');
+        require(!allSoldDogs[_currentOwnerId][_dogId], 'Breeder does not have any permission to sell this dog');
         require(breeders[_newOwnerId].exists, 'Breeder/Owner account of new owner does not exists.');
         
-        breeders[_oldOwnerId].soldDogIds.push(_dogId);
+        breeders[_currentOwnerId].soldDogIds.push(_dogId);
+        breeders[_newOwnerId].dogIds.push(_dogId);
         kennelClub[_dogId].ownerIds.push(_newOwnerId);
         kennelClub[_dogId].currentOwner++;
+        allSoldDogs[_currentOwnerId][_dogId] = true;
+        allSoldDogs[_newOwnerId][_dogId] = false;
     }
     
-    function getDogBreeder(uint _dogId) public view returns(breeder memory) {
+    function getDogBreeder(uint _dogId) public view returns(uint) {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
         
-        return breeders[kennelClub[_dogId].breederId];
+        return kennelClub[_dogId].breederId;
     }
     
-    function getDogOwnersList(uint _dogId) public view returns (breeder[] memory) {
+    function getDogOwnersList(uint _dogId) public view returns (uint[] memory) {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
         
-        breeder[] memory dogOwners;
-        for(uint i = 0; i < kennelClub[_dogId].ownerIds.length; i++) {
-            dogOwners[i] = breeders[kennelClub[_dogId].ownerIds[i]];
-        }
-        
-        return dogOwners;
+        return kennelClub[_dogId].ownerIds;
     }
     
-    function getDogCurrentOwner(uint _dogId) public view returns(breeder memory) {
+    function getDogCurrentOwner(uint _dogId) public view returns(uint) {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
         
-        return breeders[kennelClub[_dogId].ownerIds[kennelClub[_dogId].currentOwner]];
+        return kennelClub[_dogId].ownerIds[kennelClub[_dogId].currentOwner];
     }
     
-    function getDogVaccines(uint _dogId) public view returns(vaccine[] memory) {
+    function getDogVaccines(uint _dogId) public view returns(uint[] memory) {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
         
-        vaccine[] memory _dogVaccine;
-        
-        for(uint i = 0; i < kennelClub[_dogId].vaccineIds.length; i++) {
-            _dogVaccine[i] = vaccinationRecord[kennelClub[_dogId].vaccineIds[i]];
-        }
-        
-        return _dogVaccine;
+        return kennelClub[_dogId].vaccineIds;
     }
     
-    function getDogTreatments(uint _dogId) public view returns(treatment[] memory) {
+    function getDogTreatments(uint _dogId) public view returns(uint[] memory) {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
         
-        treatment[] memory _dogTreatment;
-        
-        for(uint i = 0; i < kennelClub[_dogId].treatmentIds.length; i++) {
-            _dogTreatment[i] = treatmentRecord[kennelClub[_dogId].treatmentIds[i]];
-        }
-        
-        return _dogTreatment;
+        return kennelClub[_dogId].treatmentIds;
     }
     
     
@@ -312,30 +391,26 @@ contract DogChain{
     function vaccinateDog(
         uint _vaccId,
         uint _dogId,
-        uint _ownerId,
         bytes19 _vaccDate,
         uint _dogAgeYears,
         uint _dogAgeMonths,
         uint _docId,
-        bytes32 _hospitalName,
         bytes32 _vaccName
     ) public {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
-        require(breeders[_ownerId].exists, 'Breeder/Owner account does not exists.');
         require(doctors[_docId].exists, "Doctor account does not exists.");
-        require(getCurrentWorkingHospital(_docId) == _hospitalName, 'Invalid hospital name.');
         
         vaccinationRecord[_vaccId].dogId = _dogId;
-        vaccinationRecord[_vaccId].ownerId = _ownerId;
+        vaccinationRecord[_vaccId].ownerId = getDogCurrentOwner(_dogId);
         vaccinationRecord[_vaccId].vaccinatedDate = _vaccDate;
         vaccinationRecord[_vaccId].dogAgeYears = _dogAgeYears;
         vaccinationRecord[_vaccId].dogAgeMonths = _dogAgeMonths;
         vaccinationRecord[_vaccId].doctorId = _docId;
-        vaccinationRecord[_vaccId].hospitalName = _hospitalName;
+        vaccinationRecord[_vaccId].hospitalName = getCurrentWorkingHospital(_docId);
         vaccinationRecord[_vaccId].vaccineName = _vaccName;
         vaccinationRecord[_vaccId].exists = true;
         kennelClub[_dogId].vaccineIds.push(_vaccId);
-        doctors[_docId].vaccinatedDogs.push(_dogId);
+        doctors[_docId].vaccinationRecordIds.push(_vaccId);
     }
     
     function getVaccineData(uint _vaccId) public view returns (vaccine memory){
@@ -350,33 +425,30 @@ contract DogChain{
     function treatDog(
         uint _treatmentId,
         uint _dogId,
-        uint _ownerId,
         bytes19 _admissionDate,
         uint _dogAgeYears,
         uint _dogAgeMonths,
         uint _docId,
-        bytes32 _hospitalName,
         bytes32[] memory _symptoms,
         bytes32 _verdict,
         bytes32[] memory _medicines
     ) public {
         require(kennelClub[_dogId].exists, 'Dog account does not exists.');
-        require(breeders[_ownerId].exists, 'Breeder/Owner account does not exists.');
         require(doctors[_docId].exists, "Doctor account does not exists.");
-        require(getCurrentWorkingHospital(_docId) == _hospitalName, 'Invalid hospital name.');
         
         treatmentRecord[_treatmentId].dogId = _dogId;
-        treatmentRecord[_treatmentId].ownerId = _ownerId;
+        treatmentRecord[_treatmentId].ownerId = getDogCurrentOwner(_dogId);
         treatmentRecord[_treatmentId].admissionDate = _admissionDate;
         treatmentRecord[_treatmentId].dogAgeYears = _dogAgeYears;
         treatmentRecord[_treatmentId].dogAgeMonths = _dogAgeMonths;
         treatmentRecord[_treatmentId].doctorId = _docId;
-        treatmentRecord[_treatmentId].hospitalName = _hospitalName;
+        treatmentRecord[_treatmentId].hospitalName = getCurrentWorkingHospital(_docId);
         treatmentRecord[_treatmentId].symptoms = _symptoms;
         treatmentRecord[_treatmentId].verdict = _verdict;
         treatmentRecord[_treatmentId].medicinesPrescribed = _medicines;
+        treatmentRecord[_treatmentId].exists = true;
         kennelClub[_dogId].treatmentIds.push(_treatmentId);
-        doctors[_docId].treatedDogs.push(_dogId);
+        doctors[_docId].treatmentRecordIds.push(_treatmentId);
     }
     
     function getDogTreatmentData(uint _treatmentId) public view returns (treatment memory) {
