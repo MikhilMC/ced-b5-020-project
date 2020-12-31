@@ -4,14 +4,14 @@
 
 ## Setting Up:
 
-**Step 1:** Download the repostory using the command:  
+**Step 1:** Download the repostory using the command:
 ```
- git clone "https://gitlab.com/MikhilMC/ced-b5-020-project.git"  
+ git clone "https://gitlab.com/MikhilMC/ced-b5-020-project.git"
  ```
 **Step 2:** Go to the directory DogChain/Backend and install dependancies 
 ```
  cd DogChain/Backend
- npm Install  
+ npm Install
  ```
  **Step 3:** Go to the directory DogChain/Frontend and install dependancies and build the Angular project.
 ```
@@ -19,24 +19,24 @@
  npm install
  ng build
 ```
-**Step 4:** Use the following command to compile smart contract:  
+**Step 4:** Use the following command to compile smart contract:
 ```
- truffle compile  
+ truffle compile
  ```
-**Step 5:** Use one of the following commands to connect to the private or public chain:  
+**Step 5:** Use one of the following commands to connect to the private or public chain:
 
 **Private chain:** 
 ```
-geth --identity "DogChain" --networkid "5777" --datadir "data" --http --http.port "8545" --unlock "0x15e98155e92Be1B21Eb1cD2eFf66BfBa4595cb67" --http.corsdomain "*" --http.api "miner,eth,net,web3,personal" --allow-insecure-unlock --nodiscover  
+geth --identity "DogChain" --networkid "5777" --datadir "data" --http --http.port "8545" --unlock "0x15e98155e92Be1B21Eb1cD2eFf66BfBa4595cb67" --http.corsdomain "*" --http.api "miner,eth,net,web3,personal" --allow-insecure-unlock --nodiscover
 ```
 
-start mining using the following command, before doing any transaction:  
+start mining using the following command, before doing any transaction:
 ```
-  miner.start()  
+  miner.start()
 ```
 *Password: Enter Key*
 
-The data folder is in the project root  
+The data folder is in the project root
 
 <!-- **Ropsten:**  
 ```
@@ -50,14 +50,14 @@ use eth.syncing to know the status of synching after it shows false, then you ca
  
 **Step 6:** Use the following command to deploy the smart contract to the connected chain: 
 ```
- truffle migrate  
+ truffle migrate
  ```
-**Step 7:** Run the dapp backend server using the command  
+**Step 7:** Run the dapp backend server using the command
 ```
  cd Backend
- npm start  
+ npm start
 ```
-**Step 8:** Run the dapp frontend server using the command  
+**Step 8:** Run the dapp frontend server using the command
 ```
  cd Frontend
  ng serve 
@@ -72,19 +72,19 @@ use eth.syncing to know the status of synching after it shows false, then you ca
 **Step 11:** Go http://localhost:4200/register-user/breeder. This is the registration page for breeder.
 
 ```
-ex:  
-  User ID: 10  
-  Name: saji  
-  Email: saji@abc.com  
+ex:
+  User ID: 10
+  Name: saji
+  Email: saji@abc.com
   password: saji
 ``` 
 
 **Step 12:** Go back to the register menu, go to http://localhost:4200/register-user/doctor. This is the registration page for doctors.
 
 ```
-ex:  
-  User ID: 20  
-  Name: ayana  
+ex:
+  User ID: 20
+  Name: ayana
   Email: ayana@abc.com
   Hospital: dog care
   password: ayana
@@ -93,9 +93,9 @@ ex:
 **Step 13:** Go back to the register menu, go to http://localhost:4200/register-user/authority. This is the registration page for authority.
 
 ```
-ex:  
-  User ID: 1    
-  Name: admin  
+ex:
+  User ID: 1
+  Name: admin
   Email: admin@abc.com
   password: admin
 ``` 
@@ -118,8 +118,8 @@ After this, the page is redirected to http://localhost:4200/authority-home.
 **Step 19:** Click on dog birth registration and go to http://localhost:4200/dog-birth-registration/:breederId. Give appropriate data.
 
 ```
-ex:  
-  Dog ID: 100  
+ex:
+  Dog ID: 100
   Dog Name: tucker
   Breed: labrador
   Colour: creamy white
@@ -178,18 +178,18 @@ This process also have to be approved by the authority.
 **Step 32:** Click on vaccination option and go to http://localhost:4200/vaccinate-dog/:doctorId. Give appropriate data.
 
 ```
-ex:  
-  Vaccination ID: 1000  
-  Dog ID: 100  
+ex:
+  Vaccination ID: 1000
+  Dog ID: 100
   Vaccination Date: 12-05-2018
   Vaccination Name: rabies vaccine
 ``` 
 **Step 33:** Click on treatment option and go to http://localhost:4200/treat-dog/:doctorId. Give appropriate data.
 
 ```
-ex:  
-  Treatment ID: 1000  
-  Dog ID: 100  
+ex:
+  Treatment ID: 1000
+  Dog ID: 100
   Treatment Date: 12-05-2018
   Symptoms: pain in the back left leg,
             could not walk properly
