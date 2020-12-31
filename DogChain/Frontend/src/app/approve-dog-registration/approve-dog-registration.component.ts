@@ -35,6 +35,8 @@ export class ApproveDogRegistrationComponent implements OnInit {
           this.dogName = dog['dogName'];
           this.nameInCaps = this.dogName.toUpperCase();
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -45,6 +47,8 @@ export class ApproveDogRegistrationComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-dog-birth-registrations']);
+    }, error => {
+      console.log(error);
     });
   }
 

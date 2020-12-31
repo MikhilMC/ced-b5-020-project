@@ -24,7 +24,8 @@ export class DeleteDogRegistrationComponent implements OnInit {
     this._actRoute.paramMap.subscribe(params => {
       this.dogId = Number(params.get('dogId'));
       console.log(this.dogId);
-      this._authority.getUnapprovedDogRegistration(this.dogId).subscribe(dog => {
+      this._authority.getUnapprovedDogRegistration(this.dogId)
+      .subscribe(dog => {
         if (dog.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
@@ -33,6 +34,8 @@ export class DeleteDogRegistrationComponent implements OnInit {
           this.dogName = dog['dogName'];
           this.nameInCaps = this.dogName.toUpperCase();
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -42,6 +45,8 @@ export class DeleteDogRegistrationComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-dog-birth-registrations'])
+    }, error => {
+      console.log(error);
     })
   }
 

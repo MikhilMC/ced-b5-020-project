@@ -1,9 +1,10 @@
 var express = require('express');
 var TransferData = require('../models/DogOwnershipTransferData');
+var verifyToken = require('../authorize')
 
 var router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   console.log(req.body.dogId);
   TransferData.findOne({dogId: req.body.dogId}, (error1, transfer1) => {
     if (error1) {

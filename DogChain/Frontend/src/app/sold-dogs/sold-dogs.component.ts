@@ -12,7 +12,6 @@ export class SoldDogsComponent implements OnInit {
   breederId: Number;
   isAvailable: Boolean;
   soldDogs: any[];
-  soldDogIds: any[];
 
   constructor(
     private _router: Router,
@@ -24,14 +23,15 @@ export class SoldDogsComponent implements OnInit {
     this._breeder.getSoldDogs(this.breederId)
     .subscribe(result => {
       // console.log(result);
-      this.soldDogs = <any>(result['soldDogDetails']);
-      this.soldDogIds = <any>(result['soldDogIds']);
-      console.log(this.soldDogs)
-      if (this.soldDogs.length === 0) {
+      if (result.hasOwnProperty('emptyArrayMsg')) {
         this.isAvailable = false;
       } else {
         this.isAvailable = true;
+        this.soldDogs = <any>(result['soldDogDetails']);
+        console.log(this.soldDogs);
       }
+    }, error => {
+      console.log(error);
     });
   }
 

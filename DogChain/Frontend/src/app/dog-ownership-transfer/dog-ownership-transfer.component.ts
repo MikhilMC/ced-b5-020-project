@@ -36,6 +36,8 @@ export class DogOwnershipTransferComponent implements OnInit {
         } else {
           this.hasAlreadyApplied = false;
         }
+      }, error => {
+        console.log(error);
       })
     });
   }
@@ -55,8 +57,10 @@ export class DogOwnershipTransferComponent implements OnInit {
           this._router.navigate(['/dog-ownership-transfer', this.dogId]);
         });
       } else {
-        this._router.navigate(['/primary-message'], {queryParams: {message: "Your dog's ownership transfer registration have been submitted for approval process. Please wait until the completion of approval process."}});
+        this._router.navigate(['/secondary-message'], {queryParams: {message: "Your dog's ownership transfer registration have been submitted for approval process. Please wait until the completion of approval process."}});
       }
+    }, error => {
+      console.log(error);
     })
   }
 

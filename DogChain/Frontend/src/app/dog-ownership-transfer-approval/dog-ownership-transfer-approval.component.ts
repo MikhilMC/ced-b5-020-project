@@ -31,6 +31,8 @@ export class DogOwnershipTransferApprovalComponent implements OnInit {
         // console.log(this.message);
         console.log(this.ownershipTransfers);        
       }
+    }, error => {
+      console.log(error);
     });
   }
 

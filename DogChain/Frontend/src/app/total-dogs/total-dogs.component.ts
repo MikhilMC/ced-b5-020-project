@@ -12,7 +12,6 @@ export class TotalDogsComponent implements OnInit {
   breederId: Number;
   isAvailable: Boolean;
   totalDogs: any[];
-  totalDogIds: any[];
 
   constructor(
     private _router: Router,
@@ -24,15 +23,15 @@ export class TotalDogsComponent implements OnInit {
     this._breeder.getTotalDogs(this.breederId)
     .subscribe(result => {
       // console.log(result);
-      this.totalDogs = <any>(result['totalDogDetails']);
-      this.totalDogIds = <any>(result['totalDogIds']);
-      console.log(this.totalDogs);
-      if (this.totalDogs.length === 0) {
+      if (result.hasOwnProperty('emptyArrayMsg')) {
         this.isAvailable = false;
       } else {
         this.isAvailable = true;
+        this.totalDogs = <any>(result['totalDogDetails']);
+        console.log(this.totalDogs);
       }
-      console.log(this.isAvailable)
+    }, error => {
+      console.log(error);
     });
   }
 

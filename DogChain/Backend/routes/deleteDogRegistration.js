@@ -1,9 +1,10 @@
 var express = require('express');
 var DogBirthRegisterData = require('../models/DogBirthRegisterData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.delete('/:dogId', (req, res) => {
+router.delete('/:dogId', verifyToken, (req, res) => {
   console.log(req.params.dogId);
   DogBirthRegisterData.findOneAndDelete({dogId: req.params.dogId}, (error, dog)=>{
     if (error) {

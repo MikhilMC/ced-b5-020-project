@@ -1,9 +1,10 @@
 var express = require('express');
 var DoctorData = require('../models/DoctorData');
+var verifyToken = require('../authorize')
 
 var router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   // console.log(req.body.userId);
   DoctorData.findOne({doctorId: req.body.doctorId}, (error1, user1) => {
     if (error1) {

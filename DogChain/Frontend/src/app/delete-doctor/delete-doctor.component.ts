@@ -24,7 +24,8 @@ export class DeleteDoctorComponent implements OnInit {
     this._actRoute.paramMap.subscribe(params => {
       this.doctorId = Number(params.get("doctorId"));
       console.log(this.doctorId);
-      this._authority.getUnapprovedDoctor(this.doctorId).subscribe(doctor => {
+      this._authority.getUnapprovedDoctor(this.doctorId)
+      .subscribe(doctor => {
         if (doctor.hasOwnProperty('msg')) {
           this.isAvailable = false;
         } else {
@@ -33,6 +34,8 @@ export class DeleteDoctorComponent implements OnInit {
           this.name = doctor['name'];
           this.nameInCaps = this.name.toUpperCase();          
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -42,6 +45,8 @@ export class DeleteDoctorComponent implements OnInit {
     .subscribe(doctor => {
       console.log(doctor);
       this._router.navigate(['/approve-doctors']);
+    }, error => {
+      console.log(error);
     })
   }
 

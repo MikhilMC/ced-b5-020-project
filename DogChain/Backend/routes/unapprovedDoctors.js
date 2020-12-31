@@ -1,9 +1,10 @@
 var express = require('express');
 var DoctorData = require('../models/DoctorData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   DoctorData.find({hasAddedToBlockchain: false}, null, {sort: 'doctorId'}, (error, doctors) => {
     if (error) {
       console.log(error);

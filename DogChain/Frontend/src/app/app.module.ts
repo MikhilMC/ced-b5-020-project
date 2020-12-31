@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { AuthService } from "./auth.service";
 import { AuthorityService } from "./authority.service";
 import { BreederService } from "./breeder.service";
 import { DoctorService } from "./doctor.service";
-import { MiscService } from "./misc.service";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +49,12 @@ import { VaccinateDogComponent } from './vaccinate-dog/vaccinate-dog.component';
 import { TreatDogComponent } from './treat-dog/treat-dog.component';
 import { TotalVaccinatedDogsComponent } from './total-vaccinated-dogs/total-vaccinated-dogs.component';
 import { TotalTreatedDogsComponent } from './total-treated-dogs/total-treated-dogs.component';
+import { ChangeHospitalComponent } from './change-hospital/change-hospital.component';
+import { VaccinationDataComponent } from './vaccination-data/vaccination-data.component';
+import { TreatmentDataComponent } from './treatment-data/treatment-data.component';
+import { AuthGuard } from "./auth.guard";
+import { SecondaryMessageComponent } from './secondary-message/secondary-message.component';
+import { TokenInterceptorService } from "./token-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -92,7 +97,11 @@ import { TotalTreatedDogsComponent } from './total-treated-dogs/total-treated-do
     VaccinateDogComponent,
     TreatDogComponent,
     TotalVaccinatedDogsComponent,
-    TotalTreatedDogsComponent
+    TotalTreatedDogsComponent,
+    ChangeHospitalComponent,
+    VaccinationDataComponent,
+    TreatmentDataComponent,
+    SecondaryMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +115,12 @@ import { TotalTreatedDogsComponent } from './total-treated-dogs/total-treated-do
     AuthorityService,
     BreederService,
     DoctorService,
-    MiscService
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,10 @@
 var express = require('express');
 var BreederData = require('../models/BreederData');
+var verifyToken = require('../authorize')
 
 var router = express.Router();
 
-router.delete('/:breederId', (req, res) => {
+router.delete('/:breederId', verifyToken, (req, res) => {
   console.log(req.params.id);
   BreederData.findOneAndDelete({ breederId: req.params.breederId }, (error, doc) => {
     if (error) {

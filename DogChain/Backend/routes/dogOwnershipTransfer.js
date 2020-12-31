@@ -2,10 +2,11 @@ var express = require('express');
 var DogData = require('../models/DogBirthRegisterData');
 var BreederData = require('../models/BreederData');
 var DogOwnershipTransferData = require('../models/DogOwnershipTransferData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   transferData = req.body;
   console.log(transferData);
   BreederData.findOne({breederId: transferData.currentOwnerId, hasAddedToBlockchain: true}, (error1, user1) => {

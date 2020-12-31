@@ -1,27 +1,27 @@
 <div class="container row mt-5 ml-5"  *ngIf="!isAvailable">
   <div class="card text-center border-danger rounded my-3 col-lg-4 col-md-6 mx-auto align-items-center justify-content-center d-flex flex-row">
     <div class="card-header">
-      <h5 class="card-title">No Dogs available</h5>
+      <h5 class="card-title">No current dogs available</h5>
     </div>
   </div>
 </div>
 <div class="container row mt-5 ml-5" *ngIf="isAvailable">
-  <div class="col-lg-4 col-md-6 mx-auto align-items-center justify-content-center d-flex flex-row" *ngFor="let dog of currentDogs;let i=index">
+  <div class="col-lg-4 col-md-6 mx-auto align-items-center justify-content-center d-flex flex-row" *ngFor="let dog of currentDogs">
     <div class="card text-center border-primary rounded my-3">
       <div class="card-header">
         <h5 class="card-title">{{dog.dogName}}</h5>
       </div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID : {{currentDogIds[i]}}</li>
+          <li class="list-group-item">ID : {{dog.dogId}}</li>
           <li class="list-group-item">Breed : {{dog.breed}}</li>
           <li class="list-group-item">Colour : {{dog.colour}}</li>
           <li class="list-group-item">Sex : {{dog.sex}}</li>
         </ul>
       </div>
       <div class="card-footer">
-        <p class="text-muted">For more details, click <a [routerLink]="['/dog', currentDogIds[i]]">here</a></p>
-        <p class="text-muted">For transfering ownership, click <a [routerLink]="['/dog-ownership-transfer', currentDogIds[i]]">here</a></p>
+        <p class="text-muted">For more details, click <a [routerLink]="['/dog', dog.dogId]">here</a></p>
+        <p class="text-muted">For transfering ownership, click <a [routerLink]="['/dog-ownership-transfer', dog.dogId]">here</a></p>
       </div>
     </div>    
   </div>

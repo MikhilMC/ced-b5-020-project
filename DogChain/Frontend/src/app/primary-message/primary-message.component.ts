@@ -11,11 +11,11 @@ export class PrimaryMessageComponent implements OnInit {
   message: String;
 
   constructor(
-    private _activatedRoute: ActivatedRoute
+    private _actRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this._activatedRoute.queryParams.subscribe(params => {
+    this._actRoute.queryParams.subscribe(params => {
       this.message = params["message"];
       console.log(this.message);
     });

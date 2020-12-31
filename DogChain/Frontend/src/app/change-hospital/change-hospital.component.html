@@ -1,0 +1,29 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-9 mx-auto">
+      <!-- <span class="anchor" id="loginForm"></span> -->
+
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0">
+            <h5><strong>CHANGE HOSPITAL</strong></h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="changeHospitalForm" (ngSubmit)="changeHospital()">
+            <div class="form-group row">
+              <label for="newHospitalName" class="col-md-2 pt-1">New Hospital's Name</label>
+              <input type="text" [class.is-invalid]="changeHospitalForm.get('newHospitalName').invalid && changeHospitalForm.get('newHospitalName').touched" class="form-control rounded-0 col-md-9" formControlName="newHospitalName" name="newHospitalName">
+              <div class="float-center" *ngIf="changeHospitalForm.get('newHospitalName').invalid && changeHospitalForm.get('newHospitalName').touched">
+                <small *ngIf="changeHospitalForm.get('newHospitalName').errors?.required" class="text-danger">Please enter name of the new hospital</small>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <button type="submit" [disabled]="changeHospitalForm.invalid" class="btn btn-primary float-center">CHANGE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 var express = require('express');
-const { default: Web3 } = require('web3');
 var BreederData = require('../models/BreederData');
+var verifyToken = require('../authorize')
 
 var router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', verifyToken, (req, res) => {
   console.log(req.body);
   // res.send(req.body.userId);
   BreederData.findOne({breederId: req.body.breederId}, (error1, user1) => {

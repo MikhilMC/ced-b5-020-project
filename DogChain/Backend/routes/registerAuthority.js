@@ -1,4 +1,5 @@
 var express = require('express');
+var jwt = require('jsonwebtoken');
 var AuthorityData = require('../models/AuthorityData');
 
 var router = express.Router();
@@ -43,7 +44,11 @@ router.post('/', function(req, res) {
                     .send({ from: accounts[0]})
                     .then((txn) => {
                       console.log(txn);
-                      res.status(200).send({txn, authorityUser: signedupUser});
+                      let payload = {subject: user._id}
+                      console.log(payload);
+                      let token = jwt.sign(payload, 'secretKey');
+                      res.status(200).send({token, signedupUser});
+                      // res.status(200).send({txn, authorityUser: signedupUser});
                     })
                     .catch(error => {
                       console.log(error);

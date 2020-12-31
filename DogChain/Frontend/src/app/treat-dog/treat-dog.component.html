@@ -1,1 +1,66 @@
-<p>treat-dog works!</p>
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <!-- <span class="anchor" id="registerForm"></span> -->
+
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0">
+            <h5><strong>DOG TREATMENT</strong></h5>
+          </div>
+        </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="treatmentForm" (ngSubmit)="treatDog()">
+            <div class="form-group row">
+              <label for="treatId" class="col-md-3 pt-1">Treatment ID</label>
+              <input type="number" [class.is-invalid]="treatmentForm.get('treatId').invalid && treatmentForm.get('treatId').touched" class="form-control rounded-0 col-md-8" formControlName="treatId" name="treatId">
+              <div class="float-center" *ngIf="treatmentForm.get('treatId').invalid && treatmentForm.get('treatId').touched">
+                <small *ngIf="treatmentForm.get('treatId').errors?.required" class="text-danger">Please enter the treatment ID</small>
+                <small *ngIf="treatmentForm.get('treatId').errors?.pattern" class="text-danger">Enter correct treatment ID</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="dogId" class="col-md-3 pt-1">Dog ID</label>
+              <input type="number" [class.is-invalid]="treatmentForm.get('dogId').invalid && treatmentForm.get('dogId').touched" class="form-control rounded-0 col-md-8" formControlName="dogId" name="dogId">
+              <div class="float-center" *ngIf="treatmentForm.get('dogId').invalid && treatmentForm.get('dogId').touched">
+                <small *ngIf="treatmentForm.get('dogId').errors?.required" class="text-danger">Please enter ID of the dog</small>
+                <small *ngIf="treatmentForm.get('dogId').errors?.pattern" class="text-danger">Enter correct dog ID</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="treatDate" class="col-md-3 pt-1">Treatment Date</label>
+              <input type="date" [class.is-invalid]="treatmentForm.get('treatDate').invalid && treatmentForm.get('treatDate').touched" class="form-control rounded-0 col-md-8" formControlName="treatDate" name="treatDate">
+              <div *ngIf="treatmentForm.get('treatDate').invalid && treatmentForm.get('treatDate').touched">
+                <small *ngIf="treatmentForm.get('treatDate').errors?.required" class="text-danger">Please enter vaccinated date</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="symptoms" class="col-md-3 pt-1">Symptoms</label>
+              <textarea [class.is-invalid]="treatmentForm.get('symptoms').invalid && treatmentForm.get('symptoms').touched" class="form-control rounded-0 col-md-8" formControlName="symptoms" name="symptoms" rows="5" cols="50"></textarea>
+              <div *ngIf="treatmentForm.get('symptoms').invalid && treatmentForm.get('symptoms').touched">
+                <small *ngIf="treatmentForm.get('symptoms').errors?.required" class="text-danger">Please enter symptoms.</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="verdict" class="col-md-3 pt-1">Verdict</label>
+              <input type="text" [class.is-invalid]="treatmentForm.get('verdict').invalid && treatmentForm.get('verdict').touched" class="form-control rounded-0 col-md-8" formControlName="verdict" name="verdict">
+              <div *ngIf="treatmentForm.get('verdict').invalid && treatmentForm.get('verdict').touched">
+                <small *ngIf="treatmentForm.get('verdict').errors?.required" class="text-danger">Please enter verdict.</small>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="prescription" class="col-md-3 pt-1">Prescription</label>
+              <textarea [class.is-invalid]="treatmentForm.get('prescription').invalid && treatmentForm.get('prescription').touched" class="form-control rounded-0 col-md-8" formControlName="prescription" name="prescription" rows="5" cols="50"></textarea>
+              <div *ngIf="treatmentForm.get('prescription').invalid && treatmentForm.get('prescription').touched">
+                <small *ngIf="treatmentForm.get('prescription').errors?.required" class="text-danger">Please enter prescription.</small>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <button type="submit" [disabled]="treatmentForm.invalid" class="btn btn-primary float-center">TREATMENT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

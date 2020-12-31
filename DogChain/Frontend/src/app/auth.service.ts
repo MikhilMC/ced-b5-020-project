@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
 
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _router: Router
   ) { }
 
   registerUser(user, accountType) {
@@ -56,4 +58,25 @@ export class AuthService {
       return this._http.post(this._loginAuthorityUrl, user);
     }
   }
+
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  logOut() {
+    localStorage.removeItem('token');
+    let accountType = localStorage.getItem('userType');
+    localStorage.removeItem('userType')
+    if (accountType === 'breeder') {
+      localStorage.removeItem('breederId');
+    } else if (accountType === 'doctor') {
+      localStorage.removeItem('doctorId');
+    }
+    this._router.navigate(['/login-menu'])
+  }
+
 }

@@ -40,33 +40,40 @@ export class LoginUserComponent implements OnInit {
   loginUser(): void {
     this.loginData = this.loginForm.value;
     // console.log(this.loginData);
-    this._auth.loginUser(this.loginData, this.accountType).subscribe(result => {
+    this._auth.loginUser(this.loginData, this.accountType)
+    .subscribe(result => {
       console.log(result);
-      if ("msg" in result) {
-        alert(result["msg"]);
+      console.log(result['user']);
+      if ("msg" in result['user']) {
+        alert(result['user']["msg"]);
         this._router.navigateByUrl('/dummy', {skipLocationChange: true}).then(()=>{
           this._router.navigate(['/login-user', this.accountType]);
         });
       } else {
         if (this.accountType === 'breeder' || this.accountType === 'doctor') {
-          if (!result["hasAddedToBlockchain"]) {
+          if (!result['user']["hasAddedToBlockchain"]) {
             this._router.navigate(['primary-message'], { queryParams: { message: "Sorry, your account haven't been approved yet. Either the process is not completed yet, or your account have been rejected. Please check after sometime." } });
           } else {
             if (this.accountType === 'breeder') {
+              localStorage.setItem('token', result['token'])
+              localStorage.setItem('userType','breeder');
+              localStorage.setItem('breederId',result['user']['breederId']);
               this._router.navigate(['/breeder-home']);
-              // localStorage.setItem('userType','breeder');
-              localStorage.setItem('breederId',result['breederId']);
             } else {
+              localStorage.setItem('token', result['token'])
+              localStorage.setItem('userType','doctor');
+              localStorage.setItem('doctorId',result['user']['doctorId']);
               this._router.navigate(['/doctor-home']);
-              // localStorage.setItem('userType','doctor');
-              localStorage.setItem('doctorId',result['doctorId']);
             }
           }
         } else {
+          localStorage.setItem('userType','authority');
+          localStorage.setItem('token', result['token'])
           this._router.navigate(['/authority-home']);
-          // localStorage.setItem('userType','authority');
         }
       }
+    }, error => {
+      console.log(error);
     });
   }
 }

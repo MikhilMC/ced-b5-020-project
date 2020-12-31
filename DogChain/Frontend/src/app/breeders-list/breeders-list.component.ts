@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { AuthorityService } from "../authority.service";
 
 @Component({
   selector: 'app-breeders-list',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BreedersListComponent implements OnInit {
 
-  constructor() { }
+  isAvailable: Boolean;
+  breedersList: any[]
+
+  constructor(
+    private _router: Router,
+    private _authority: AuthorityService
+  ) { }
 
   ngOnInit(): void {
+    this._authority.getBreedersList()
+    .subscribe(result => {
+      if (result.hasOwnProperty('emptyArrayMsg')) {
+        this.isAvailable = false;
+      } else {
+        this.isAvailable = true;
+        this.breedersList = <any>(result);
+        console.log(this.breedersList);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

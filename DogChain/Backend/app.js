@@ -45,6 +45,20 @@ var getCurrentDogs = require('./routes/getCurrentDogs');
 var getDogDetails = require('./routes/getDogDetails');
 
 var vaccinateDog = require('./routes/vaccinateDog');
+var treatDog = require('./routes/treatDog');
+var changeHospital = require('./routes/changeHospital');
+var doctorVaccineRecord = require('./routes/doctorVaccineRecord');
+var doctorTreatmentRecord = require('./routes/doctorTreatmentRecord');
+var getVaccineData = require('./routes/getVaccineData');
+var getTreatmentData = require('./routes/getTreatmentData');
+var getDogVaccines = require('./routes/getDogVaccines');
+var getDogTreatments = require('./routes/getDogTreatments');
+
+var completeBreedersList = require('./routes/completeBreedersList');
+var completeDoctorsList = require('./routes/completeDoctorsList');
+var completeDogsList = require('./routes/completeDogsList');
+var getBreederDetails = require('./routes/getBreederDetails');
+var getDoctorDetails = require('./routes/getDoctorDetails');
 
 var hasAlreadySubmittedOwnershipTransfer = require('./routes/hasAlreadySubmittedOwnershipTransfer');
 var dogOwnershipTransfer = require('./routes/dogOwnershipTransfer');
@@ -129,5 +143,19 @@ app.use('/has-already-submitted-ownership-transfer', hasAlreadySubmittedOwnershi
 app.use('/dog-ownership-transfer', dogOwnershipTransfer);
 
 app.use('/vaccinate-dog', vaccinateDog);
+app.use('/treat-dog', treatDog);
+app.use('/change-hospital', changeHospital);
+app.use('/doctor-vaccine-record', doctorVaccineRecord);
+app.use('/doctor-treatment-record', doctorTreatmentRecord);
+app.use('/get-vaccine-data', getVaccineData);
+app.use('/get-treatment-data', getTreatmentData);
+app.use('/get-dog-vaccines', getDogVaccines);
+app.use('/get-dog-treatments', getDogTreatments);
+
+app.use('/complete-breeders-list', completeBreedersList);
+app.use('/complete-doctors-list', completeDoctorsList);
+app.use('/complete-dogs-list', completeDogsList);
+app.use('/breeder', getBreederDetails);
+app.use('/doctor', getDoctorDetails);
 
 module.exports = app;

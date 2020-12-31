@@ -1,0 +1,64 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0" *ngIf="!isAvailable">
+            <h5><strong>TREATMENT DETAILS NOT AVAILABLE.</strong></h5>
+          </div>
+        <div class="card-body table-responsive" *ngIf="isAvailable">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">FIELD</th>
+                <th scope="col">VALUE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TREATMENT ID</td>
+                <td>{{treatData['treatmentId']}}</td>
+              </tr>
+              <tr>
+                <td>DOG ID</td>
+                <td>{{treatData['dogId']}}</td>
+              </tr>
+              <tr>
+                <td>OWNER ID</td>
+                <td>{{treatData['ownerId']}}</td>
+              </tr>
+              <tr>
+                <td>ADMISSION DATE</td>
+                <td>{{treatData['admissionDate']}}</td>
+              </tr>
+              <tr>
+                <td>AGE</td>
+                <td>{{treatData['dogAgeYears']}} years and {{treatData['dogAgeMonths']}} months.</td>
+              </tr>
+              <tr>
+                <td>DOCTOR ID</td>
+                <td>{{treatData['doctorId']}}</td>
+              </tr>
+              <tr>
+                <td>HOSPITAL NAME</td>
+                <td>{{treatData['hospitalName']}}</td>
+              </tr>
+              <tr>
+                <td>SYMPTOMS</td>
+                <td>{{treatData['symptoms']}}</td>
+              </tr>
+              <tr>
+                <td>VERDICT</td>
+                <td>{{treatData['verdict']}}</td>
+              </tr>
+              <tr>
+                <td>PRESCRIPTION</td>
+                <td>{{treatData['prescription']}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

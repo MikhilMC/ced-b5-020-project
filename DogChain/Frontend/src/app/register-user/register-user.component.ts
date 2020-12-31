@@ -51,8 +51,8 @@ export class RegisterUserComponent implements OnInit {
     this.registerData = this.registerForm.value;
     console.log(this.registerData);
     this._auth.registerUser(this.registerData, this.accountType)
-    .subscribe((result)=>{
-      // console.log(result);
+    .subscribe(result => {
+      console.log(result);
       if ("msg" in result) {
         alert(result["msg"]);
         this._router.navigateByUrl('/dummy', {skipLocationChange: true}).then(()=>{
@@ -68,10 +68,13 @@ export class RegisterUserComponent implements OnInit {
         } else {
           // console.log(2);
           console.log(result);
-          // localStorage.setItem('userType','authority');
+          localStorage.setItem('userType','authority');
+          localStorage.setItem('token', result['token'])
           this._router.navigate(["/authority-home"]);
         }
       }
+    }, error => {
+      console.log(error);
     });
   }
 

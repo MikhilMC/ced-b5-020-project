@@ -38,7 +38,11 @@ import { VaccinateDogComponent } from "./vaccinate-dog/vaccinate-dog.component";
 import { TreatDogComponent } from "./treat-dog/treat-dog.component";
 import { TotalVaccinatedDogsComponent } from "./total-vaccinated-dogs/total-vaccinated-dogs.component";
 import { TotalTreatedDogsComponent } from "./total-treated-dogs/total-treated-dogs.component";
-
+import { ChangeHospitalComponent } from "./change-hospital/change-hospital.component";
+import { VaccinationDataComponent } from "./vaccination-data/vaccination-data.component";
+import { TreatmentDataComponent } from "./treatment-data/treatment-data.component";
+import { AuthGuard } from "./auth.guard";
+import { SecondaryMessageComponent } from "./secondary-message/secondary-message.component";
 
 const routes: Routes = [
   { 
@@ -69,15 +73,18 @@ const routes: Routes = [
   },
   {
     path: "authority-home",
-    component: AuthorityHomeComponent
+    component: AuthorityHomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "breeder-home",
-    component: BreederHomeComponent
+    component: BreederHomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "doctor-home",
-    component: DoctorHomeComponent
+    component: DoctorHomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "login-user/:type",
@@ -86,141 +93,194 @@ const routes: Routes = [
   },
   {
     path: "approve-breeders",
-    component: BreedersApprovalComponent
+    component: BreedersApprovalComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-doctors",
-    component: DoctorsApprovalComponent
+    component: DoctorsApprovalComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "dog-birth-registration/:breederId",
     component: DogBirthRegistrationComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-dog-birth-registrations",
-    component: DogBirthRegistrationApprovalComponent
+    component: DogBirthRegistrationApprovalComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "dog-ownership-transfer/:dogId",
     component: DogOwnershipTransferComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-dog-ownership-transfers",
-    component: DogOwnershipTransferApprovalComponent
+    component: DogOwnershipTransferApprovalComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "breeders-list",
-    component: BreedersListComponent
+    component: BreedersListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "doctors-list",
-    component: DoctorsListComponent
+    component: DoctorsListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "all-dogs-list",
-    component: DogsListComponent
+    component: DogsListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "breeder/:breederId",
     component: SingleBreederComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
-    path: "doctor/:docorId",
+    path: "doctor/:doctorId",
     component: SingleDoctorComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "dog/:dogId",
     component: SingleDogComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "delete-breeder/:breederId",
     component: DeleteBreederComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "delete-doctor/:doctorId",
     component: DeleteDoctorComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "delete-dog-birth-registration/:dogId",
     component: DeleteDogRegistrationComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "delete-dog-ownership-transfer/:dogId",
     component: DeleteOwnershipTransferComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-breeder/:breederId",
     component: ApproveBreederComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-doctor/:doctorId",
     component: ApproveDoctorComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-dog-birth-registration/:dogId",
     component: ApproveDogRegistrationComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "approve-dog-ownership-transfer/:dogId",
     component: ApproveOwnershipTransferComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "total-dogs/:breederId",
     component: TotalDogsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "sold-dogs/:breederId",
     component: SoldDogsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "current-dogs/:breederId",
     component: CurrentDogsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "dog-vaccination/:dogId",
     component: DogVaccinationsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "dog-treatment/:dogId",
     component: DogTreatmentsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "vaccinate-dog/:doctorId",
     component: VaccinateDogComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
     path: "treat-dog/:doctorId",
     component: TreatDogComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
-    path: "total-vaccinated-dogs/:doctorId",
+    path: "doctor-vaccinated-dogs/:doctorId",
     component: TotalVaccinatedDogsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   },
   {
-    path: "total-treated-dogs/:doctorId",
+    path: "doctor-treated-dogs/:doctorId",
     component: TotalTreatedDogsComponent,
-    pathMatch: "full"
+    pathMatch: "full",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "change-hospital/:doctorId",
+    component: ChangeHospitalComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "vaccination-data/:vaccId",
+    component: VaccinationDataComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "treatment-data/:treatId",
+    component: TreatmentDataComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "secondary-message",
+    component: SecondaryMessageComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard]
   }
 ];
 

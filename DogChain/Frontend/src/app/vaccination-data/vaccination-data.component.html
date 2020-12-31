@@ -1,0 +1,56 @@
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0" *ngIf="!isAvailable">
+            <h5><strong>VACCINATION DETAILS NOT AVAILABLE.</strong></h5>
+          </div>
+        <div class="card-body table-responsive" *ngIf="isAvailable">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">FIELD</th>
+                <th scope="col">VALUE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VACCINATION ID</td>
+                <td>{{vaccData['vaccId']}}</td>
+              </tr>
+              <tr>
+                <td>DOG ID</td>
+                <td>{{vaccData['dogId']}}</td>
+              </tr>
+              <tr>
+                <td>OWNER ID</td>
+                <td>{{vaccData['ownerId']}}</td>
+              </tr>
+              <tr>
+                <td>VACCINATION DATE</td>
+                <td>{{vaccData['vaccineDate']}}</td>
+              </tr>
+              <tr>
+                <td>AGE</td>
+                <td>{{vaccData['dogAgeYears']}} years and {{vaccData['dogAgeMonths']}} months.</td>
+              </tr>
+              <tr>
+                <td>DOCTOR ID</td>
+                <td>{{vaccData['doctorId']}}</td>
+              </tr>
+              <tr>
+                <td>HOSPITAL NAME</td>
+                <td>{{vaccData['hospitalName']}}</td>
+              </tr>
+              <tr>
+                <td>VACCINE NAME</td>
+                <td>{{vaccData['vaccineName']}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

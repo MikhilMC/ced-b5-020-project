@@ -1,9 +1,10 @@
 const express = require('express');
 const OwnershipTransferData = require('../models/DogOwnershipTransferData');
+var verifyToken = require('../authorize');
 
 const router = express.Router();
 
-router.get('/:userId/:dogId', (req, res) => {
+router.get('/:userId/:dogId', verifyToken, (req, res) => {
   console.log(req.params)
   OwnershipTransferData.findOne({currentOwnerId: req.params.userId, dogId: req.params.dogId, hasAddedToBlockchain: false}, (error, transfer)=>{
     if (error) {

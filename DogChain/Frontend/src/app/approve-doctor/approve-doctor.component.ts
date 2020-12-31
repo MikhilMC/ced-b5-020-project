@@ -34,6 +34,8 @@ export class ApproveDoctorComponent implements OnInit {
           this.name = doctor['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -45,6 +47,8 @@ export class ApproveDoctorComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-doctors']);      
+    }, error => {
+      console.log(error);
     });
   }
 

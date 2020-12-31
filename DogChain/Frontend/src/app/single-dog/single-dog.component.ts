@@ -31,6 +31,8 @@ export class SingleDogComponent implements OnInit {
         } else {
           this.isAvailable = true;
         }
+      }, error => {
+        console.log(error);
       });
     });
   }

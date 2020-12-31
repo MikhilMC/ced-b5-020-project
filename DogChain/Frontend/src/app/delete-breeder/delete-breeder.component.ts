@@ -34,6 +34,8 @@ export class DeleteBreederComponent implements OnInit {
           this.name = breeder['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -44,6 +46,8 @@ export class DeleteBreederComponent implements OnInit {
     .subscribe(breeder => {
       console.log(breeder);
       this._router.navigate(['/approve-breeders']);
+    }, error => {
+      console.log(error);
     })
   }
 

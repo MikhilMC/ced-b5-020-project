@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-breeder-home',
@@ -11,7 +10,6 @@ export class BreederHomeComponent implements OnInit {
   breederId: Number;
 
   constructor(
-    private _actRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {

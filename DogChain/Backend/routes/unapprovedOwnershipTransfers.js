@@ -1,9 +1,10 @@
 var express = require('express');
 var OwnershipTransferData = require('../models/DogOwnershipTransferData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   OwnershipTransferData.find({hasAddedToBlockchain: false}, null, {sort: 'dogId'}, (error, transfers) => {
     if (error) {
       console.log(error);

@@ -1,4 +1,6 @@
 const express = require('express');
+var jwt = require('jsonwebtoken');
+
 const AuthorityData = require('../models/AuthorityData');
 
 const router = express.Router();
@@ -16,7 +18,10 @@ router.post("", (req, res) => {
       } else if(user.password !== req.body.password) {
         res.send({ msg: "Invalid password" });
       } else {
-        res.status(200).send(user);
+        let payload = {subject: user._id}
+        let token = jwt.sign(payload, 'secretKey');
+        res.status(200).send({token, user});
+        // res.status(200).send(user);
       }
     }
   });

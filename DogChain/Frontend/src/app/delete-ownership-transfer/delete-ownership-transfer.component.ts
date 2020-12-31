@@ -33,6 +33,8 @@ export class DeleteOwnershipTransferComponent implements OnInit {
           this.currentOwnerId = transfer['currentOwnerId'];
           this.newOwnerId = transfer['newOwnerId'];
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -42,6 +44,8 @@ export class DeleteOwnershipTransferComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-dog-ownership-transfers'])
+    }, error => {
+      console.log(error);
     })
   }
 

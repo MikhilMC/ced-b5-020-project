@@ -1,4 +1,6 @@
 var express = require('express');
+var jwt = require('jsonwebtoken');
+
 var DoctorData = require('../models/DoctorData');
 
 var router = express.Router();
@@ -42,6 +44,9 @@ router.post('/', function(req, res) {
                   res.status(401).send(err3);
                 } else {
                   console.log(signedupUser);
+                  // let payload = {subject: user._id}
+                  // let token = jwt.sign(payload, 'secretKey');
+                  // res.status(200).send({token});
                   res.status(200).send(signedupUser);
                 }
               });

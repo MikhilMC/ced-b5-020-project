@@ -1,1 +1,40 @@
-<p>total-vaccinated-dogs works!</p>
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-12 mx-auto">
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <h5><strong>DOCTOR VACCINATION LIST</strong></h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="!isAvailable">
+            <p class="text-danger">THERE IS NO VACCINATION DATA AVAILABLE.</p>
+          </div>
+          <div class="table-responsive" *ngIf="isAvailable">
+            <table class="table table-bordered table-md">
+              <thead class="bg-primary text-light">
+                <tr>
+                  <th>VACCINATION ID</th>
+                  <th>DOG ID</th>
+                  <th>OWNER ID</th>
+                  <th>VACCINATION DATE</th>
+                  <th>KNOW MORE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let vaccine of vaccineRecord">
+                  <td>{{ vaccine['vaccId'] }}</td>
+                  <td>{{ vaccine['dogId'] }}</td>
+                  <td>{{ vaccine['ownerId'] }}</td>
+                  <td>{{ vaccine['vaccDate'] }}</td>
+                  <td>
+                    <a class="btn btn-success mr-1" [routerLink]="['/vaccination-data', vaccine['vaccId']]">KNOW MORE</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

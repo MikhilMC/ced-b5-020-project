@@ -26,9 +26,11 @@ export class AuthorityService {
   private _approveDogRegistrationUrl = "http://localhost:3000/approve-dog-registration";
   private _approveOwnershipTransfesUrl = "http://localhost:3000/approve-ownership-transfer";
   
-  private _breedersListUrl = "http://localhost:3000/breeders-list";
-  private _doctorsListUrl = "http://localhost:3000/doctors-list";
-  private _dogsListUrl = "http://localhost:3000/dogs-list";
+  private _breedersListUrl = "http://localhost:3000/complete-breeders-list";
+  private _doctorsListUrl = "http://localhost:3000/complete-doctors-list";
+  private _dogsListUrl = "http://localhost:3000/complete-dogs-list";
+  private _breederDetailsUrl = "http://localhost:3000/breeder";
+  private _doctorDetailsUrl = "http://localhost:3000/doctor"
 
   constructor(
     private _http: HttpClient
@@ -98,9 +100,24 @@ export class AuthorityService {
     return this._http.post(this._approveOwnershipTransfesUrl, dogId);
   }
   
-  getBreedersList() {}
+  getBreedersList() {
+    return this._http.get(this._breedersListUrl);
+  }
 
-  getDoctorsList() {}
+  getDoctorsList() {
+    return this._http.get(this._doctorsListUrl);
+  }
 
-  getDogsList() {}
+  getDogsList() {
+    return this._http.get(this._dogsListUrl);
+  }
+
+  getBreederDetails(breederId) {
+    return this._http.get(this._breederDetailsUrl + '/' + breederId);
+  }
+
+  getDoctorDetails(doctorId) {
+    return this._http.get(this._doctorDetailsUrl + '/' + doctorId);
+  }
+
 }

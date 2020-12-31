@@ -32,5 +32,21 @@ export class VaccinateDogComponent implements OnInit {
     let vaccinationData = this.vaccinationForm.value;
     vaccinationData['doctorId'] = this.doctorId;
     console.log(vaccinationData);
+    this._doctor.vaccinateDog(vaccinationData)
+    .subscribe(result => {
+      console.log(result);
+      if (result.hasOwnProperty('msg')) {
+        alert(result["msg"]);
+        this._router.navigateByUrl('/dummy', {skipLocationChange: true})
+        .then(()=>{
+          this._router.navigate(['/vaccinate-dog', this.doctorId]);
+        });
+      } else {
+        alert('Vaccination data is added.');
+        this._router.navigate(['/doctor-home']);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 }

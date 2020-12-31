@@ -1,9 +1,10 @@
 var express = require('express');
 var BreederData = require('../models/BreederData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.get('/:breederId', (req, res) => {
+router.get('/:breederId', verifyToken, (req, res) => {
   console.log(req.params.userId);
   BreederData.findOne({breederId: req.params.breederId, hasAddedToBlockchain: false}, (error, user) => {
     if (error) {

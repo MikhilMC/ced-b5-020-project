@@ -31,6 +31,8 @@ export class DogBirthRegistrationApprovalComponent implements OnInit {
         // console.log(this.message);
         console.log(this.birthRegistrations);        
       }
+    }, error => {
+      console.log(error);
     });
   }
 

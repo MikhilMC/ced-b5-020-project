@@ -10,25 +10,69 @@
             <h5><strong>{{dogDetails['dogName']}}</strong></h5>
           </div>
         </div>
-        <div class="card-body" *ngIf="isAvailable">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID : {{dogId}}</li>
-            <li class="list-group-item">BREED : {{dogDetails['breed']}}</li>
-            <li class="list-group-item">COLOUR : {{dogDetails['colour']}}</li>
-            <li class="list-group-item">SEX : {{dogDetails['sex']}}</li>
-            <li class="list-group-item">DATE OF BIRTH : {{dogDetails['dob']}}</li>
-            <li class="list-group-item">AGE : {{dogDetails['ageInYears']}} years and {{dogDetails['ageInMonths']}} months.</li>
-            <li class="list-group-item">FATHER ID : {{dogDetails['fatherId']}}</li>
-            <li class="list-group-item">FATHER NAME : {{dogDetails['fatherName']}}</li>
-            <li class="list-group-item">MOTHER ID : {{dogDetails['motherId']}}</li>
-            <li class="list-group-item">MOTHER NAME : {{dogDetails['motherName']}}</li>
-            <li class="list-group-item">BREEDER ID : {{dogDetails['breederId']}}</li>
-            <li class="list-group-item">OWNER ID : {{dogDetails['ownerId']}}</li>
-          </ul>          
+        <div class="card-body table-responsive" *ngIf="isAvailable">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">FIELD</th>
+                <th scope="col">VALUE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DOG ID</td>
+                <td>{{dogId}}</td>
+              </tr>
+              <tr>
+                <td>BREED</td>
+                <td>{{dogDetails['breed']}}</td>
+              </tr>
+              <tr>
+                <td>COLOUR</td>
+                <td>{{dogDetails['colour']}}</td>
+              </tr>
+              <tr>
+                <td>SEX</td>
+                <td>{{dogDetails['sex']}}</td>
+              </tr>
+              <tr>
+                <td>DATE OF BIRTH</td>
+                <td>{{dogDetails['dob']}}</td>
+              </tr>
+              <tr>
+                <td>AGE</td>
+                <td>{{dogDetails['ageInYears']}} years and {{dogDetails['ageInMonths']}} months.</td>
+              </tr>
+              <tr>
+                <td>FATHER ID</td>
+                <td>{{dogDetails['fatherId']}}</td>
+              </tr>
+              <tr>
+                <td>FATHER NAME</td>
+                <td>{{dogDetails['fatherName']}}</td>
+              </tr>
+              <tr>
+                <td>MOTHER ID</td>
+                <td>{{dogDetails['motherId']}}</td>
+              </tr>
+              <tr>
+                <td>MOTHER NAME</td>
+                <td>{{dogDetails['motherName']}}</td>
+              </tr>
+              <tr>
+                <td>BREEDER ID</td>
+                <td>{{dogDetails['breederId']}}</td>
+              </tr>
+              <tr>
+                <td>OWNER ID</td>
+                <td>{{dogDetails['ownerId']}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="card-footer">
-          <p class="text-muted">For vaccination records, click <a [routerLink]="['/dog-vaccination', dogId]">here</a></p>
-          <p class="text-muted">For treatment records, click <a [routerLink]="['/dog-treatment', dogId]">here</a></p>
+          <p class="text-muted">For dog's vaccination records, click <a [routerLink]="['/dog-vaccination', dogId]">here</a></p>
+          <p class="text-muted">For dog's treatment records, click <a [routerLink]="['/dog-treatment', dogId]">here</a></p>
         </div>
       </div>
     </div>

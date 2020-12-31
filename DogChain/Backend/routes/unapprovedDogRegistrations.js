@@ -1,9 +1,10 @@
 var express = require('express');
 var DogBirthRegisterData = require('../models/DogBirthRegisterData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', verifyToken, (req, res) => {
   DogBirthRegisterData.find({hasAddedToBlockchain: false}, null, {sort: 'dogId'}, (error, dogs) => {
     if (error) {
       console.log(error);

@@ -17,7 +17,8 @@ export class DoctorsApprovalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._authority.getUnapprovedDoctorsList().subscribe(result => {
+    this._authority.getUnapprovedDoctorsList()
+    .subscribe(result => {
       if (result.hasOwnProperty('msg')) {
         this.isAvailable = false;
         this.message = result['msg'];
@@ -30,6 +31,8 @@ export class DoctorsApprovalComponent implements OnInit {
         }
         console.log(this.unapprovedDoctors);        
       }
+    }, error => {
+      console.log(error);
     });
   }
 

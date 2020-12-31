@@ -32,6 +32,8 @@ export class BreedersApprovalComponent implements OnInit {
         console.log(this.isAvailable);
         console.log(this.unapprovedBreeders);        
       }
+    }, error => {
+      console.log(error);
     });
   }
 

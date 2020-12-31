@@ -53,8 +53,10 @@ export class DogBirthRegistrationComponent implements OnInit {
           this._router.navigate(['/dog-birth-registration', this.breederId]);
         });
       } else {
-        this._router.navigate(['/primary-message'], {queryParams: {message: "Your dog's registration have been submitted for approval process. Please wait until the completion of approval process."}});
+        this._router.navigate(['/secondary-message'], {queryParams: {message: "Your dog's registration have been submitted for approval process. Please wait until the completion of approval process."}});
       }
+    }, error => {
+      console.log(error);
     })
   }
 

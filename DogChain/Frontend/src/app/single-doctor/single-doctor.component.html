@@ -1,1 +1,41 @@
-<p>single-doctor works!</p>
+<div class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card text-center rounded">
+        <div class="card-header">
+          <div class="mb-0" *ngIf="!isAvailable">
+            <h5><strong>DOCTOR DETAILS NOT AVAILABLE.</strong></h5>
+          </div>
+        </div>
+        <div class="card-body table-responsive" *ngIf="isAvailable">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">FIELD</th>
+                <th scope="col">VALUE</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>DOCTOR ID</td>
+                <td>{{doctorId}}</td>
+              </tr>
+              <tr>
+                <td>NAME</td>
+                <td>{{doctorData['doctorName']}}</td>
+              </tr>
+              <tr>
+                <td>WORKED HOSPITAL NAMES</td>
+                <td>{{doctorData['hospitalNames']}}</td>
+              </tr>
+              <tr>
+                <td>CURRENT HOSPITAL</td>
+                <td>{{doctorData['currentHospital']}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

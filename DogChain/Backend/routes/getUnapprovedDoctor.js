@@ -1,9 +1,10 @@
 var express = require('express');
 var DoctorData = require('../models/DoctorData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.get('/:doctorId', (req, res) => {
+router.get('/:doctorId', verifyToken, (req, res) => {
   console.log(req.params.dogId);
   DoctorData.findOne({doctorId: req.params.doctorId, hasAddedToBlockchain: false}, (error, user) => {
     if (error) {

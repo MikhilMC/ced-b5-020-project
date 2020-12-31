@@ -1,9 +1,10 @@
 var express = require('express');
 var DoctorData = require('../models/DoctorData');
+var verifyToken = require('../authorize');
 
 var router = express.Router();
 
-router.delete('/:doctorId', (req, res) => {
+router.delete('/:doctorId', verifyToken, (req, res) => {
   DoctorData.findOneAndDelete({ doctorId: req.params.doctorId }, (error, doc) => {
     if (error) {
       console.log(error);

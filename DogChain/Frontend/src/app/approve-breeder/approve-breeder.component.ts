@@ -35,6 +35,8 @@ export class ApproveBreederComponent implements OnInit {
           this.name = breeder['name'];
           this.nameInCaps = this.name.toUpperCase();
         }
+      }, error => {
+        console.log(error);
       });
     });
   }
@@ -45,6 +47,8 @@ export class ApproveBreederComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       this._router.navigate(['/approve-breeders']);
+    }, error => {
+      console.log(error);
     });
   }
 

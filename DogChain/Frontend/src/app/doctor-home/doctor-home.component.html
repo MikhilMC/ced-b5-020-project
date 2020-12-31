@@ -21,8 +21,17 @@
     <div class="card text-center border-primary rounded my-3">
       <h5 class="card-header border-primary bg-primary text-light"><strong>DOCTOR ACTIVITY</strong></h5>
       <div class="card-body">
+        <p class="card-title">FOR CHANGING CURRENTLY WORKING HOSPITAL, CLICK</p>
+        <a [routerLink]="['/change-hospital', doctorId]" class="btn btn-primary">HERE</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 mx-auto">
+    <div class="card text-center border-primary rounded my-3">
+      <h5 class="card-header border-primary bg-primary text-light"><strong>DOCTOR ACTIVITY</strong></h5>
+      <div class="card-body">
         <p class="card-title">FOR COMPLETE LIST OF VACCINATED DOGS, CLICK</p>
-        <a [routerLink]="['/total-vaccinated-dogs', doctorId]" class="btn btn-primary">HERE</a>
+        <a [routerLink]="['/doctor-vaccinated-dogs', doctorId]" class="btn btn-primary">HERE</a>
       </div>
     </div>
   </div>
@@ -31,7 +40,7 @@
       <h5 class="card-header border-primary bg-primary text-light"><strong>DOCTOR ACTIVITY</strong></h5>
       <div class="card-body">
         <p class="card-title">FOR COMPLETE LIST OF TREATED DOGS, CLICK</p>
-        <a [routerLink]="['/total-treated-dogs', doctorId]" class="btn btn-primary">HERE</a>
+        <a [routerLink]="['/doctor-treated-dogs', doctorId]" class="btn btn-primary">HERE</a>
       </div>
     </div>
   </div>
