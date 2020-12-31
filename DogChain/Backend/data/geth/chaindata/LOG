@@ -61,3 +61,40 @@
 08:05:53.664265 table@remove removed @2
 09:06:29.607271 db@close closing
 09:06:29.607485 db@close done T·209.091µs
+=============== Dec 31, 2020 (IST) ===============
+10:17:34.048648 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+10:17:34.122498 version@stat F·[0 1] S·643KiB[0B 643KiB] Sc·[0.00 0.01]
+10:17:34.122645 db@open opening
+10:17:34.122941 journal@recovery F·1
+10:17:34.146657 journal@recovery recovering @12
+10:17:34.344740 memdb@flush created L0@15 N·5234 S·296KiB "\x01qs..\x1bl',v20100":"\xff\xd8X..\xd51\xca,v20143"
+10:17:34.348662 version@stat F·[1 1] S·940KiB[296KiB 643KiB] Sc·[0.25 0.01]
+10:17:34.460724 db@janitor F·5 G·1
+10:17:34.460836 db@janitor removing table-11
+10:17:34.461083 db@open done T·338.397425ms
+11:12:45.113619 db@close closing
+11:12:45.113703 db@close done T·82.969µs
+=============== Dec 31, 2020 (IST) ===============
+13:44:01.218601 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:44:01.239823 version@stat F·[1 1] S·940KiB[296KiB 643KiB] Sc·[0.25 0.01]
+13:44:01.239897 db@open opening
+13:44:01.240084 journal@recovery F·1
+13:44:01.246769 journal@recovery recovering @16
+13:44:01.399268 memdb@flush created L0@18 N·4069 S·209KiB "\x18\xc0\u007f..\x8bF\xef,v24246":"\xff\a=..\x03\xf9D,v24241"
+13:44:01.412086 version@stat F·[2 1] S·1MiB[505KiB 643KiB] Sc·[0.50 0.01]
+13:44:01.535015 db@janitor F·5 G·0
+13:44:01.535151 db@open done T·295.223515ms
+13:49:24.780529 db@close closing
+13:49:24.780631 db@close done T·100.946µs
+=============== Dec 31, 2020 (IST) ===============
+13:57:36.873933 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:57:36.874156 version@stat F·[2 1] S·1MiB[505KiB 643KiB] Sc·[0.50 0.01]
+13:57:36.874210 db@open opening
+13:57:36.874311 journal@recovery F·1
+13:57:36.878621 journal@recovery recovering @19
+13:57:36.909587 memdb@flush created L0@21 N·233 S·30KiB "\x12\xdbK..9k\x96,v24474":"\xf4\xc2U..=\x8dH,v24471"
+13:57:36.913531 version@stat F·[3 1] S·1MiB[536KiB 643KiB] Sc·[0.75 0.01]
+13:57:37.000591 db@janitor F·6 G·0
+13:57:37.000731 db@open done T·126.45557ms
+14:28:39.750720 db@close closing
+14:28:39.750987 db@close done T·260.617µs

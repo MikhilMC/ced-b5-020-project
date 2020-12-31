@@ -1,0 +1,38 @@
+=============== Dec 31, 2020 (IST) ===============
+14:38:16.312438 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:38:16.381249 db@open opening
+14:38:16.396284 version@stat F·[] S·0B[] Sc·[]
+14:38:16.426793 db@janitor F·2 G·0
+14:38:16.427030 db@open done T·44.167341ms
+14:38:16.597145 memdb@flush N·630 S·73KiB
+14:38:16.638563 memdb@flush created L0@3 N·630 S·51KiB "\x00\x15\xb7..\xd5=),v354":"\xff\x977..i\x90q,v398"
+14:38:16.638945 version@stat F·[1] S·51KiB[51KiB] Sc·[0.25]
+14:38:16.705975 memdb@flush committed F·1 T·108.647385ms
+14:38:16.706798 journal@remove removed @1
+14:38:16.707002 table@compaction range L-1 "":""
+14:38:16.707194 table@compaction L0·1 -> L1·0 S·51KiB Q·630
+14:38:16.740378 table@build created L1@4 N·630 S·51KiB "\x00\x15\xb7..\xd5=),v354":"\xff\x977..i\x90q,v398"
+14:38:16.740556 version@stat F·[0 1] S·51KiB[0B 51KiB] Sc·[0.00 0.00]
+14:38:16.761412 table@compaction committed F~ S~ Ke·0 D·0 T·54.083393ms
+14:38:16.761904 table@remove removed @3
+=============== Dec 31, 2020 (IST) ===============
+14:38:29.050516 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+14:38:29.050691 version@stat F·[0 1] S·51KiB[0B 51KiB] Sc·[0.00 0.00]
+14:38:29.050729 db@open opening
+14:38:29.050809 journal@recovery F·1
+14:38:29.053814 journal@recovery recovering @2
+14:38:29.060798 version@stat F·[0 1] S·51KiB[0B 51KiB] Sc·[0.00 0.00]
+14:38:29.154127 db@janitor F·3 G·0
+14:38:29.154270 db@open done T·103.513868ms
+14:38:29.367466 memdb@flush N·7 S·688B
+14:38:29.411828 memdb@flush created L0@8 N·7 S·697B "blt..unt,v636":"eth..\xcaJ-,v631"
+14:38:29.412037 version@stat F·[1 1] S·51KiB[697B 51KiB] Sc·[0.25 0.00]
+14:38:29.501024 memdb@flush committed F·1 T·133.444604ms
+14:38:29.501245 journal@remove removed @5
+14:38:29.501724 table@compaction range L-1 "":""
+14:38:29.501836 table@compaction L0·1 -> L1·1 S·51KiB Q·637
+14:38:29.557161 table@build created L1@9 N·628 S·51KiB "\x00\x15\xb7..\xd5=),v354":"\xff\x977..i\x90q,v398"
+14:38:29.557425 version@stat F·[0 1] S·51KiB[0B 51KiB] Sc·[0.00 0.00]
+14:38:29.602426 table@compaction committed F-1 S-685B Ke·0 D·9 T·100.420417ms
+14:38:29.603039 table@remove removed @8
+14:38:29.603260 table@remove removed @4

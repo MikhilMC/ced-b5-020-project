@@ -25,15 +25,15 @@ export class AuthorityHomeComponent implements OnInit {
       link: "/approve-dog-ownership-transfers"
     },
     {
-      type: "LISTING COMPLETE LIST OF BREEDERS",
+      type: "DISPLAYING COMPLETE LIST OF BREEDERS",
       link: "/breeders-list"
     },
     {
-      type: "LISTING COMPLETE LIST OF DOCTORS",
+      type: "DISPLAYING COMPLETE LIST OF DOCTORS",
       link: "/doctors-list"
     },
     {
-      type: "LISTING COMPLETE LIST OF DOGS",
+      type: "DISPLAYING COMPLETE LIST OF DOGS",
       link: "/all-dogs-list"
     }
   ];
