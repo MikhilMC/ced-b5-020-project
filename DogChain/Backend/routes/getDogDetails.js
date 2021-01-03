@@ -6,18 +6,23 @@ var router = express.Router();
 router.get('/:dogId', verifyToken, (req, res) => {
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract method to find whether the details 
+    // of the dog with given id is saved in the blockchain or not
     MyContract.methods.isDogPresent(req.params.dogId)
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
+        // Case : The details of the dog with the given id is not saved in the blockchain
         console.log('Dog with this ID is not registered. Please check the dog ID.');
-        res.send({msg: 'Dog with this ID is not registered. Please check the dog ID.'});
+        res.send({breederErrorMsg: 'Dog with this ID is not registered. Please check the dog ID.'});
       } else {
+        // Case : The details of the dog with the given id is available in the blockchain
+
+        // Smart contract method to retreive the details of the dog with the given id
         MyContract.methods.getDogData(req.params.dogId)
         .call({from: accounts[0]})
         .then(dog => {
           console.log(dog);
-          // res.status(200).send(dog);
           let dogData = {}
           dogData['dogName'] = web3.utils.hexToAscii(dog.dogName).replace(/\u0000/gi, '');
           dogData['breed'] = web3.utils.hexToAscii(dog.breed).replace(/\u0000/gi, '');

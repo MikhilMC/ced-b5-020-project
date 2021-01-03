@@ -6,27 +6,33 @@ var router = express.Router();
 router.get('/:breederId', verifyToken, (req, res) => {
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract to find whether details of the breeder is saved to blockchain or not
     MyContract.methods.isBreederPresent(req.params.breederId)
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
+        // Case : The data of the breeder is not present
         console.log('Breeder with this ID is not registered. Please check the breeder ID.');
-        res.send({msg: 'Breeder with this ID is not registered. Please check the breeder ID.'});
+        res.send({breederErrorMsg: 'Breeder with this ID is not registered. Please check the breeder ID.'});
       } else {
+        // Case : The data of the breeder is present
+        
+        // Smart contract method to find the ids of all the dogs of this owner
         MyContract.methods.getTotalDogIds(req.params.breederId)
         .call({from: accounts[0]})
         .then(totalDogIds => {
           console.log(totalDogIds);
-          // res.status(200).send(totalDogs);
           if (totalDogIds.length === 0) {
+            // Case : The total dog id list is empty
             console.log('Total dogs list is empty.');
             res.send({emptyArrayMsg: 'Total dogs list is empty.'});
           } else {
+            // Case : The total dog id list is not empty
+
+            // Smart contract method to get all the details of the total dogs.
             MyContract.methods.getDogsList(totalDogIds)
             .call({from: accounts[0]})
             .then(totalDogs => {
-              // console.log(totalDogs);
-              // res.status(200).send(totalDogs)
               let totalDogDetails = []
               for (let i = 0; i < totalDogIds.length; i++) {
                 let dogData = {}

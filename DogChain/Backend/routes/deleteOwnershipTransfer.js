@@ -6,6 +6,8 @@ var router = express.Router();
 
 router.delete('/:dogId', verifyToken, (req, res) => {
   console.log(req.params.dogId);
+  // Database method to find and delete the ownership transfer 
+  // request of the dog with the given id
   TransferData.findOneAndDelete({dogId: req.params.dogId}, (error, transfer) => {
     if (error) {
       console.log(error);

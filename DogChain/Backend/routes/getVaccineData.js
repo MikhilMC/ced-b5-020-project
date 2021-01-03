@@ -6,20 +6,23 @@ const router = express.Router();
 router.get('/:vaccId', verifyToken, (req, res) => {
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract method to find whether the vaccination data 
+    // with the given id is present or not
     MyContract.methods.isVaccineDataPresent(req.params.vaccId)
     .call({from: accounts[0]})
     .then(result => {
       console.log(result);
-      // res.status(200).send(result);
       if (!result) {
+        // Case : Vaccination data is absent
         console.log('Vaccine data is absent');
         res.send({msg: 'Vaccine data is absent'});
       } else {
+        // Case : Vaccination data is present
+
+        // Smart contract method retreive the vaccination data of the given id
         MyContract.methods.getVaccineData(req.params.vaccId)
         .call({from: accounts[0]})
         .then(vaccine => {
-          // console.log(vaccine);
-          // res.status(200).send(vaccine);
           let vaccineData = {}
           vaccineData['vaccId'] = req.params.vaccId;
           vaccineData['dogId'] = vaccine.dogId;

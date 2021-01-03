@@ -18,8 +18,13 @@ contract("DogChain", function () {
     const dc = await DogChain.deployed();
     let id = 1;
     let name = 'admin';
+    
+    // Function to store the details of an authority account
     await dc.registerAuthority(id, stringToBytes(name, 32));
+
+    // Function to retreive the details of an authority account
     let authorityDetails = await dc.getAuthorityData(id);
+    
     assert.equal(bytesToString(authorityDetails.authorityName), name, "authority name doesn't match.");
     assert.equal(authorityDetails.exists, true, "authority account doesn't exists.");
   });
@@ -29,8 +34,13 @@ contract("DogChain", function () {
     const dc = await DogChain.deployed();
     let id = 10;
     let name = 'abc';
+    
+    // Function to store the details of a breeder account
     await dc.registerBreeder(id, stringToBytes(name, 32));
+    
+    // Function to retreive the details of a breeder account
     let breederDetails = await dc.getBreederData(id);
+    
     assert.equal(bytesToString(breederDetails.breederName), name, "breeder name doesn't match.");
     assert.equal(breederDetails.exists, true, "breeder account doesn't exists.");
   });
@@ -40,8 +50,13 @@ contract("DogChain", function () {
     const dc = await DogChain.deployed();
     let id = 11;
     let name = 'abcd';
+    
+    // Function to store the details of a breeder account
     await dc.registerBreeder(id, stringToBytes(name, 32));
+    
+    // Function to retreive the details of a breeder account
     let breederDetails = await dc.getBreederData(id);
+    
     assert.equal(bytesToString(breederDetails.breederName), name, "second breeder name doesn't match.");
     assert.equal(breederDetails.exists, true, "second breeder account doesn't exists.");
   });
@@ -52,10 +67,17 @@ contract("DogChain", function () {
     let id = 20;
     let name = 'abc';
     let hospital = "abcd"
+    
+    // Function to store the details of a doctor account
     await dc.registerDoctor(id, stringToBytes(name, 32), stringToBytes(hospital, 32));
+    
+    // Function to retreive the details of a doctor account
     let doctorDetails = await dc.getDoctorData(id);
+    // Function to retreive the name of current working hospital of a doctor account
+    let currentHospital = await dc.getCurrentWorkingHospital(id);
+    
     assert.equal(bytesToString(doctorDetails.doctorName), name, "doctor name doesn't match.");
-    assert.equal(bytesToString(doctorDetails.hospitalNames[doctorDetails.currentHospital]), hospital, "hospital name doesn't match.");
+    assert.equal(bytesToString(currentHospital), hospital, "hospital name doesn't match.");
     assert.equal(doctorDetails.exists, true, "doctor account doesn't exists.");
   });
 
@@ -64,9 +86,13 @@ contract("DogChain", function () {
     const dc = await DogChain.deployed();
     let id = 20;
     let newHospital = "xyz"
+    
+    // Function to change the current working hospital of a doctor account into a new one
     await dc.changeHospital(id, stringToBytes(newHospital, 32));
-    let doctorDetails = await dc.getDoctorData(id);
-    assert.equal(bytesToString(doctorDetails.hospitalNames[doctorDetails.currentHospital]), newHospital, "new hospital name doesn't match.");
+    // Function to retreive the name of current working hospital of a doctor account
+    let currentHospital = await dc.getCurrentWorkingHospital(id);
+
+    assert.equal(bytesToString(currentHospital), newHospital, "new hospital name doesn't match.");
   });
 
   // Condition to check whether the registration of a dog's birth will happen or not
@@ -81,6 +107,8 @@ contract("DogChain", function () {
     let fatherId = 0;
     let motherId = 0;
     let breederId = 10;
+    
+    // Function to store the details of a dog's birth registration
     await dc.dogBirthRegistration(
       id,
       stringToBytes(name, 32),
@@ -92,8 +120,14 @@ contract("DogChain", function () {
       motherId,
       breederId
     );
+    
+    // Function to retreive the details of a dog account
     let dogDetails = await dc.getDogData(id);
+    // Function to retreive the id of a dog's breeder
+    let dogBreederId = await dc.getDogBreeder(id);
+    // Function to retreive the id of a dog's current owner
     let ownerId = await dc.getDogCurrentOwner(id);
+
     assert.equal(bytesToString(dogDetails.dogName), name, "dog name doesn't match.");
     assert.equal(bytesToString(dogDetails.breed), breed, "dog breed doesn't match.");
     assert.equal(bytesToString(dogDetails.breed), breed, "dog breed doesn't match.");
@@ -101,7 +135,7 @@ contract("DogChain", function () {
     assert.equal(bytesToString(dogDetails.dateOfBirth), dob, "dog date of birth doesn't match.");
     assert.equal(dogDetails.fatherId, fatherId, "dog's father id doesn't match.");
     assert.equal(dogDetails.motherId, motherId, "dog's mother id doesn't match.");
-    assert.equal(dogDetails.breederId, breederId, "dog's breeder id doesn't match.");
+    assert.equal(dogBreederId, breederId, "dog's breeder id doesn't match.");
     assert.equal(ownerId, breederId, "dog's current owner id doesn't match.");
     assert.equal(dogDetails.exists, true, "dog birth registration doesn't exists.");
   });
@@ -117,7 +151,10 @@ contract("DogChain", function () {
       currentOwnerId,
       newOwnerId
     );
+    
+    // Function to retreive the id of a dog's current owner
     let ownerId = await dc.getDogCurrentOwner(id);
+    
     assert.equal(ownerId, newOwnerId, "dog's ownership transfer didn't happened.");
   });
 
@@ -131,6 +168,8 @@ contract("DogChain", function () {
     let ageMonths = 5;
     let docId = 20;
     let vaccName = "rabies vaccine";
+    
+    // Function to store the details of a dog's vaccination
     await dc.vaccinateDog(
       id,
       dogId,
@@ -140,9 +179,14 @@ contract("DogChain", function () {
       docId,
       stringToBytes(vaccName, 32)
     );
+    
+    // Function to retreive the details of a dog vaccination
     let vaccinationDetails = await dc.getVaccineData(id);
+    // Function to retreive the id of a dog's current owner
     let ownerId = await dc.getDogCurrentOwner(dogId);
+    // Function to retreive the name of current working hospital of a doctor account
     let hospitalName = await dc.getCurrentWorkingHospital(docId);
+    
     assert.equal(vaccinationDetails.dogId, dogId, "dog id doesn't match");
     assert.equal(vaccinationDetails.ownerId, ownerId, "dog owner id doesn't match");
     assert.equal(bytesToString(vaccinationDetails.vaccinatedDate), date, "vaccination date doesn't match");
@@ -166,6 +210,8 @@ contract("DogChain", function () {
     let symptoms = ["pain in the legs", "could not walk properly"];
     let verdict = "sprain in the leg";
     let prescription = ["bandage in legs", "pain killer for dogs"];
+    
+    // Function to store the details of a dog's vaccination
     await dc.treatDog(
       id,
       dogId,
@@ -177,9 +223,14 @@ contract("DogChain", function () {
       stringToBytes(verdict, 32),
       prescription.map(x => stringToBytes(x, 32))
     );
+    
+    // Function to retreive the details of a dog vaccination
     let treatmentDetails = await dc.getDogTreatmentData(id);
+    // Function to retreive the id of a dog's current owner
     let ownerId = await dc.getDogCurrentOwner(dogId);
+    // Function to retreive the name of current working hospital of a doctor account
     let hospitalName = await dc.getCurrentWorkingHospital(docId);
+    
     assert.equal(treatmentDetails.dogId, dogId, "dog id doesn't match");
     assert.equal(treatmentDetails.ownerId, ownerId, "dog owner id doesn't match");
     assert.equal(bytesToString(treatmentDetails.admissionDate), date, "treatment date doesn't match");

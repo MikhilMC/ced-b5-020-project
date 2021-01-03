@@ -71,8 +71,6 @@ contractAddress = MyContractJSON.networks['5777'].address;
 contractAbi = MyContractJSON.abi;
 
 MyContract = new web3.eth.Contract(contractAbi, contractAddress);
-// console.log("Connected to smart contract");
-// console.log(MyContract.methods);
 
 var app = express();
 

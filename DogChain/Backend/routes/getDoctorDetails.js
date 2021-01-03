@@ -6,13 +6,18 @@ const router = express.Router();
 router.get('/:doctorId', verifyToken, (req, res) => {
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract to find whether details of the doctor is saved to blockchain or not
     MyContract.methods.isDoctorPresent(req.params.doctorId)
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
+        // Case : The data of the doctor is not present
         console.log('doctor with this ID is not registered. Please check the doctor ID.');
         res.send({msg: 'doctor with this ID is not registered. Please check the doctor ID.'});
       } else {
+        // Case : The data of the doctor is present
+
+        // Smart contract method for retreiving all the details of the given doctor id.
         MyContract.methods.getDoctorData(req.params.doctorId)
         .call({from: accounts[0]})
         .then(doctor => {

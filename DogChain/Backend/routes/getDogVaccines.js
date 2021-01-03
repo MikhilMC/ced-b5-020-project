@@ -6,26 +6,34 @@ const router = express.Router();
 router.get('/:dogId', verifyToken, (req, res) => {
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract method to find whether the details 
+    // of the dog with given id is saved in the blockchain or not
     MyContract.methods.isDogPresent(req.params.dogId)
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
+        // Case : The details of the dog with the given id is not saved in the blockchain
         console.log('Dog is not registered. Please check the dog ID.');
         res.send({msg: 'Dog is not registered. Please check the dog ID.'});
       } else {
+        // Case : The details of the dog with the given id is available in the blockchain
+        
+        // Smart contract method to retreive all the vaccination ids done for this dog
         MyContract.methods.getDogVaccines(req.params.dogId)
         .call({from: accounts[0]})
         .then(dogVaccineIds => {
           console.log(dogVaccineIds);
           if (dogVaccineIds.length === 0) {
+            // Case : Dog's vaccination id list is empty
             console.log('Dog vaccine list is empty.');
             res.send({emptyArrayMsg: 'Dog vaccine list is empty.'});
           } else {
+            // Case : Dog's vaccination id list is not empty
+
+            // Smart contract method to get all the details of the given vaccinations
             MyContract.methods.getVaccinesList(dogVaccineIds)
             .call({from: accounts[0]})
             .then(dogVaccinesList => {
-              // console.log(dogVaccinesList);
-              // res.status(200).send(dogVaccinesList)
               let dogVaccinesData = [];
               for (let i = 0; i < dogVaccineIds.length; i++) {
                 let vaccine = {};
@@ -33,11 +41,7 @@ router.get('/:dogId', verifyToken, (req, res) => {
                 vaccine['dogId'] = dogVaccinesList[i].dogId;
                 vaccine['ownerId'] = dogVaccinesList[i].ownerId;
                 vaccine['vaccDate'] = web3.utils.hexToAscii(dogVaccinesList[i].vaccinatedDate).replace(/\u0000/gi, '');
-                // vaccine['dogAgeYears'] = dogVaccinesList[i].dogAgeYears;
-                // vaccine['dogAgeMonths'] = dogVaccinesList[i].dogAgeMonths;
                 vaccine['doctorId'] = dogVaccinesList[i].doctorId;
-                // vaccine['hospitalName'] = web3.utils.hexToAscii(dogVaccinesList[i].hospitalName).replace(/\u0000/gi, '');
-                // vaccine['vaccineName'] = web3.utils.hexToAscii(dogVaccinesList[i].vaccineName).replace(/\u0000/gi, '');
                 dogVaccinesData.push(vaccine);
               }
               console.log(dogVaccinesData);

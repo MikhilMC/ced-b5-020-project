@@ -5,6 +5,7 @@ var verifyToken = require('../authorize');
 var router = express.Router();
 
 router.delete('/:doctorId', verifyToken, (req, res) => {
+  // Database method to find and delete the doctor with the given id
   DoctorData.findOneAndDelete({ doctorId: req.params.doctorId }, (error, doc) => {
     if (error) {
       console.log(error);

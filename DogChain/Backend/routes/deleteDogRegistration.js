@@ -6,6 +6,7 @@ var router = express.Router();
 
 router.delete('/:dogId', verifyToken, (req, res) => {
   console.log(req.params.dogId);
+  // Database method to find and delete the birth registration data of the dog with the given id
   DogBirthRegisterData.findOneAndDelete({dogId: req.params.dogId}, (error, dog)=>{
     if (error) {
       console.log(error);

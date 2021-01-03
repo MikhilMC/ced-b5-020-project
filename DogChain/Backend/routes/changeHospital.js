@@ -8,22 +8,35 @@ router.post('/', verifyToken, (req, res) => {
   console.log(hospitalData);
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract method to find whether the details 
+    // of the doctor with the given id is saved in the blockchain or not
     MyContract.methods.isDoctorPresent(hospitalData.doctorId)
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
+        // Case : Doctor data is absent in the blockchain
         console.log('Doctor with this ID is not registered. Please check the doctor ID.');
-        res.send({msg: 'Doctor with this ID is not registered. Please check the doctor ID.'});
+        res.send({doctorErrorMsg: 'Doctor with this ID is not registered. Please check the doctor ID.'});
       } else {
+        // Case : Doctor data is present in the blockchain
+
+        // Smart contract method to get the current working hospital of this doctor
         MyContract.methods.getCurrentWorkingHospital(hospitalData.doctorId)
         .call({from: accounts[0]})
         .then(currentHospital => {
           console.log(currentHospital);
           if (web3.utils.hexToAscii(currentHospital).replace(/\u0000/gi, '').toLowerCase() === hospitalData.newHospitalName.toLowerCase()) {
+            // Case : The given new hospital name is similar with the current hospital name
             console.log('This doctor is already working in this hospital. Please check the new hospital name.');
             res.send({sameHospitalErrorMsg: 'This doctor is already working in this hospital. Please check the new hospital name.'});
           } else {
-            MyContract.methods.changeHospital(hospitalData.doctorId, web3.utils.asciiToHex(hospitalData.newHospitalName))
+            // Case : The given new hospital name is different with the current hospital name
+
+            // Smart contract method to change the current working hospital of this doctor
+            MyContract.methods.changeHospital(
+              hospitalData.doctorId, 
+              web3.utils.asciiToHex(hospitalData.newHospitalName)
+            )
             .send({from: accounts[0]})
             .then(txn => {
               console.log(txn);

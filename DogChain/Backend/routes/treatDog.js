@@ -8,40 +8,51 @@ router.post('/', verifyToken, (req, res) => {
   console.log(treatData);
   web3.eth.getAccounts()
   .then(accounts => {
+    // Smart contract method to find whether the data of the treatment 
+    // with the given id is already saved in the blockchain or not.
     MyContract.methods.isTreatmentDataPresent(treatData.treatId)
     .call({from: accounts[0]})
     .then(result1 => {
       console.log(result1);
-      // res.status(200).send(result);
       if (result1) {
+        // Case : The data of the treatment with the given id 
+        //        is already present in the blockchain.
         console.log('Treatment data is already present');
         res.send({msg: 'Treatment data is already present'});
       } else {
+        // Case : The data of the treatment with the given id 
+        //        is absent in the blockchain.
+        
+        // Smart contract method to check whether the details 
+        // of the dog with the given id is saved in the blockchain or not.
         MyContract.methods.isDogPresent(treatData.dogId)
         .call({from: accounts[0]})
         .then(result2 => {
           console.log(result2);
-          // res.status(200).send(result2);
           if (!result2) {
+            // Case : The given dog's data is absent in the blockchain
             console.log('Dog with this ID is not registered. Please check the dog ID.');
             res.send({msg: 'Dog with this ID is not registered. Please check the dog ID.'});
           } else {
-            // res.status(200).send(result2);
+            // Case : The given dog's data is present in the blockchain
+            
+            // Smart contract method to find whether the details 
+            // of the doctor with the given id is saved in the blockchain or not
             MyContract.methods.isDoctorPresent(treatData.doctorId)
             .call({from: accounts[0]})
             .then(result3 => {
               console.log(result3);
-              // res.status(200).send(result3);
               if (!result3) {
+                // Case : Doctor data is absent in the blockchain
                 console.log('Doctor with this ID is not registered. Please check the doctor ID.');
-                res.send({msg: 'Doctor with this ID is not registered. Please check the doctor ID.'});
+                res.send({doctorErrorMsg: 'Doctor with this ID is not registered. Please check the doctor ID.'});
               } else {
-                // res.status(200).send(result3);
+                // Case : Doctor data is present in the blockchain
+
+                // Smart contract method to retrieve the details of the dog with the given id.
                 MyContract.methods.getDogData(treatData.dogId)
                 .call({from: accounts[0]})
                 .then(dog => {
-                  // console.log(dog);
-                  // res.status(200).send(dog);
                   let dob = web3.utils.hexToAscii(dog.dateOfBirth).replace(/\u0000/gi, '');
                   let t1 = new Date(treatData.treatDate);
                   let t2 = new Date(dob);
@@ -51,14 +62,24 @@ router.post('/', verifyToken, (req, res) => {
                     ageInYears--;
                     ageInMonths = 12 + t1.getMonth() - t2.getMonth();
                   }
-                  // treatData['ageInYears'] = ageInYears;
-                  // treatData['ageInMonths'] = ageInMonths
                   let symptoms = treatData.symptoms.map(web3.utils.asciiToHex);
                   let prescription = treatData.prescription.map(web3.utils.asciiToHex)
                   console.log(symptoms);
                   console.log(prescription)
-                  // res.status(200).send(treatData);
-                  MyContract.methods.treatDog(treatData.treatId, treatData.dogId, web3.utils.asciiToHex(treatData.treatDate), ageInYears, ageInMonths, treatData.doctorId, symptoms, web3.utils.asciiToHex(treatData.verdict), prescription)
+                  
+                  // Smart contract method to save the details 
+                  // of the treatment to the blockchain
+                  MyContract.methods.treatDog(
+                    treatData.treatId, 
+                    treatData.dogId, 
+                    web3.utils.asciiToHex(treatData.treatDate), 
+                    ageInYears, 
+                    ageInMonths, 
+                    treatData.doctorId, 
+                    symptoms, 
+                    web3.utils.asciiToHex(treatData.verdict), 
+                    prescription
+                  )
                   .send({from: accounts[0]})
                   .then(txn => {
                     console.log(txn);
