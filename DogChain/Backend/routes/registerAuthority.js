@@ -12,11 +12,11 @@ router.post('/', function(req, res) {
       res.status(401).send(err1);
     } else {
       if (user1) {
-        // Case : The given user id is already being used.
+        // CASE : The given user id is already being used.
         console.log("User Id is already used by another user");
         res.send({ msg: "User Id is already used by another user" });
       } else {
-        // Case : The given user id is not being used.
+        // CASE : The given user id is not being used.
 
         // Database method to find the authority account 
         // with the given email is already being used.
@@ -26,11 +26,11 @@ router.post('/', function(req, res) {
             res.status(401).send(err2);
           } else {
             if (user2) {
-              // Case : The given email is already being used.
+              // CASE : The given email is already being used.
               console.log("Email is already used by another user");
               res.send({ msg: "Email is already used by another user" });
             } else {
-              // Case : The given email is not being used.
+              // CASE : The given email is not being used.
               let userData = {};
               userData['authorityId'] = req.body.userId;
               userData['name'] = req.body.name;

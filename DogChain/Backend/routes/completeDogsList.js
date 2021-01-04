@@ -12,11 +12,11 @@ router.get('/', verifyToken, (req, res) => {
     .then(allDogsIds => {
       console.log(allDogsIds)
       if (allDogsIds.length === 0) {
-        // Case : There is no dog's data present in the system
+        // CASE : There is no dog's data present in the system
         console.log('Complete dogs list is empty.');
         res.send({emptyArrayMsg: 'Complete dogs list is empty.'});
       } else {
-        // Case : There are dog's data present in the system
+        // CASE : There are dog's data present in the system
 
         // Smart contract method to get all the details of the given dogs
         MyContract.methods.getDogsList(allDogsIds)

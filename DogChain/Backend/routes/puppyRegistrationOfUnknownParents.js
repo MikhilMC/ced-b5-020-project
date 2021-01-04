@@ -14,25 +14,25 @@ router.post('/', verifyToken, (req, res) => {
       res.status(401).send(error1);
     } else {
       if (dog1) {
-        // Case : The dog birth registration with given id is being used
+        // CASE : The dog birth registration with given id is being used
         console.log('Dog is already registered');
         res.send({msg: 'Dog is already registered'});
       } else {
-        // Case : The dog birth registration with given id is not being used
+        // CASE : The dog birth registration with given id is not being used
 
         // Database method to find the breeder account 
         // with the given breeder id which also have added to blockchain.
-        BreederData.findOne({breederId: dogData['breederId'], hasAddedToBlockchain: false}, (error2, breeder) => {
+        BreederData.findOne({breederId: dogData['breederId'], hasAddedToBlockchain: true}, (error2, breeder) => {
           if (error2) {
             console.log(error2);
             res.status(401).send(error2);
           } else {
             if (!breeder) {
-              // Case : Breeder account haven't been registered.
+              // CASE : Breeder account haven't been registered.
               console.log("Breeder account is not registered.");
               res.send({breederErrorMsg: "Breeder account is not registered."})
             } else {
-              // Case : Breeder account have registered.
+              // CASE : Breeder account have registered.
               
               // The following field of a dog birth registration 
               // details is set to false, because this dog birth registration 

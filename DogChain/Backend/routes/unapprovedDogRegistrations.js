@@ -13,11 +13,11 @@ router.get('/', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!dogs) {
-        // Case : There is no dog birth registrations details available
+        // CASE : There is no dog birth registrations details available
         //        which haven't been added to blockchain yet.
         res.send({msg: "There are no unapproved dog birth registrations."})
       } else {
-        // Case : The dog birth registrations details are available
+        // CASE : The dog birth registrations details are available
         //        which haven't been added to blockchain yet.
         console.log(dogs);
         res.status(200).send(dogs);

@@ -11,11 +11,11 @@ router.get('/:doctorId', verifyToken, (req, res) => {
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
-        // Case : The data of the doctor is not present
+        // CASE : The data of the doctor is not present
         console.log('doctor with this ID is not registered. Please check the doctor ID.');
         res.send({msg: 'doctor with this ID is not registered. Please check the doctor ID.'});
       } else {
-        // Case : The data of the doctor is present
+        // CASE : The data of the doctor is present
 
         // Smart contract method for retreiving all the details of the given doctor id.
         MyContract.methods.getDoctorData(req.params.doctorId)

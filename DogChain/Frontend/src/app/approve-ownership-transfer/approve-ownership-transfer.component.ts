@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { AuthorityService } from '../authority.service';
 
 @Component({
@@ -17,7 +19,8 @@ export class ApproveOwnershipTransferComponent implements OnInit {
   constructor(
     private _actRoute: ActivatedRoute,
     private _router: Router,
-    private _authority: AuthorityService
+    private _authority: AuthorityService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -26,15 +29,21 @@ export class ApproveOwnershipTransferComponent implements OnInit {
       this._authority.getUnapprovedOwnershipTransfer(this.dogId)
       .subscribe(transfer => {
         if (transfer.hasOwnProperty('msg')) {
+          // CASE : The ownership transfer request of the dog with the given id is not available
           this.isAvailable = false;
         } else {
+          // CASE : The ownership transfer request of the dog with the given id is available
           this.isAvailable = true;
           console.log(transfer);
           this.currentOwnerId = transfer['currentOwnerId'];
           this.newOwnerId = transfer['newOwnerId'];
         }
       }, error => {
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            this._auth.logoutUser();
+          }
+        }
       });
     });
   }
@@ -43,10 +52,15 @@ export class ApproveOwnershipTransferComponent implements OnInit {
     let data = {dogId: this.dogId}
     this._authority.approveOwnershipTransfer(data)
     .subscribe(result => {
+      // CASE : The authority approves the ownership transfer request of this dog.
       console.log(result);
       this._router.navigate(['/approve-dog-ownership-transfers']);
     }, error => {
-      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          this._auth.logoutUser();
+        }
+      }
     });
   }
 

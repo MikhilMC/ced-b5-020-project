@@ -67,7 +67,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logOut() {
+  logoutUser() {
     localStorage.removeItem('token');
     let accountType = localStorage.getItem('userType');
     localStorage.removeItem('userType')

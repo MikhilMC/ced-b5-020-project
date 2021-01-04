@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { AuthService } from '../auth.service';
 import { BreederService } from "../breeder.service";
 
 @Component({
@@ -14,24 +15,33 @@ export class TotalDogsComponent implements OnInit {
   totalDogs: any[];
 
   constructor(
-    private _router: Router,
-    private _breeder: BreederService
+    private _breeder: BreederService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.breederId = Number(localStorage.getItem('breederId'));
     this._breeder.getTotalDogs(this.breederId)
     .subscribe(result => {
-      // console.log(result);
       if (result.hasOwnProperty('emptyArrayMsg')) {
+        // CASE : The total dog id list is empty
         this.isAvailable = false;
+      } else if("breederErrorMsg" in result) {
+        // CASE : Wrong breederId. Working of this app is compromised.
+        alert('Wrong breederId. Working of this app is compromised.')
+        this._auth.logoutUser();
       } else {
+        // CASE : The total dog id list is not empty
         this.isAvailable = true;
         this.totalDogs = <any>(result['totalDogDetails']);
         console.log(this.totalDogs);
       }
     }, error => {
-      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          this._auth.logoutUser();
+        }
+      }
     });
   }
 

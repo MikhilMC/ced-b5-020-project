@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
+import { AuthService } from '../auth.service';
 import { BreederService } from "../breeder.service";
 
 @Component({
@@ -15,8 +17,8 @@ export class SingleDogComponent implements OnInit {
 
   constructor(
     private _actRoute: ActivatedRoute,
-    private _router: Router,
-    private _breeder: BreederService
+    private _breeder: BreederService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -24,15 +26,21 @@ export class SingleDogComponent implements OnInit {
       this.dogId = Number(params.get('dogId'));
       this._breeder.getDogDetails(this.dogId)
       .subscribe(result => {
-        this.dogDetails = result;
-        console.log(this.dogDetails);
-        if (this.dogDetails == undefined) {
+        console.log(result);
+        if ("msg" in result) {
+          // CASE : The details of the dog with the given id is not saved in the blockchain
           this.isAvailable = false;
         } else {
+          // CASE : The details of the dog with the given id is available in the blockchain
           this.isAvailable = true;
+          this.dogDetails = result;
         }
       }, error => {
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            this._auth.logoutUser();
+          }
+        }
       });
     });
   }

@@ -12,11 +12,11 @@ router.get('/:breederId', verifyToken, (req, res) => {
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
-        // Case : The data of the breeder is not present
+        // CASE : The data of the breeder is not present
         console.log('Breeder with this ID is not registered. Please check the breeder ID.');
         res.send({msg: 'Breeder with this ID is not registered. Please check the breeder ID.'});
       } else {
-        // Case : The data of the breeder is present
+        // CASE : The data of the breeder is present
 
         // Smart contract method for retreiving all the details of the given breeder id.
         MyContract.methods.getBreederData(req.params.breederId)

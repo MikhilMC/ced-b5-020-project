@@ -14,12 +14,12 @@ router.get('/:breederId', verifyToken, (req, res) => {
       res.status(401).send(error)
     } else {
       if (!user) {
-        // Case : Details of the breeder with the given id whose details haven't been 
+        // CASE : Details of the breeder with the given id whose details haven't been 
         //        added to blockchain yet, is not present in the database.
         console.log('User not available');
         res.send({msg: 'User not available.'});
       } else {
-        // Case : Details of the breeder with the given id whose details haven't been 
+        // CASE : Details of the breeder with the given id whose details haven't been 
         //        added to blockchain yet, is present in the database.
         console.log(user);
         res.status(200).send(user);

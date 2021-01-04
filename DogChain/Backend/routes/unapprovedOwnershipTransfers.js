@@ -12,10 +12,10 @@ router.get('/', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!transfers) {
-        // Case : There is no unapproved ownership transfer requests available
+        // CASE : There is no unapproved ownership transfer requests available
         res.send({msg: "There are no unapproved dog ownership transfers."})
       } else {
-        // Case : There are unapproved ownership transfer requests available
+        // CASE : There are unapproved ownership transfer requests available
         console.log(transfers);
         res.status(200).send(transfers);
       }

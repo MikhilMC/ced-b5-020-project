@@ -12,11 +12,11 @@ router.get('/', verifyToken, (req, res) => {
     .then(allDoctorIds => {
       console.log(allDoctorIds);
       if (allDoctorIds.length === 0) {
-        // Case : There is no doctor account's data present in the system
+        // CASE : There is no doctor account's data present in the system
         console.log('Complete doctors list is empty.');
         res.send({emptyArrayMsg: 'Complete doctors list is empty.'});
       } else {
-        // Case : There are doctor account's data present in the system
+        // CASE : There are doctor account's data present in the system
         
         // Smart contract method to get all the details of the given doctors
         MyContract.methods.getDoctorsList(allDoctorIds)

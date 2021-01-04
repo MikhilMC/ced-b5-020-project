@@ -14,11 +14,11 @@ router.post('/', verifyToken, (req, res) => {
       res.status(401).send(error1);
     } else {
       if (dog1) {
-        // Case : The dog birth registration with given id is being used
+        // CASE : The dog birth registration with given id is being used
         console.log('This dog is already registered');
         res.send({msg: 'This dog is already registered'});
       } else {
-        // Case : The dog birth registration with given id is not being used
+        // CASE : The dog birth registration with given id is not being used
         
         // Database method to find the breeder account 
         // with the given breeder id which also have added to blockchain.
@@ -28,11 +28,11 @@ router.post('/', verifyToken, (req, res) => {
             res.status(401).send(error2);
           } else {
             if (!breeder) {
-              // Case : Breeder account haven't been registered.
+              // CASE : Breeder account haven't been registered.
               console.log("Breeder account is not registered.");
               res.send({breederErrorMsg: "Breeder account is not registered."})
             } else {
-              // Case : Breeder account have registered.
+              // CASE : Breeder account have registered.
               
               // Database method to find the details of the dog's mother
               // which have already added to blockchain.
@@ -42,11 +42,11 @@ router.post('/', verifyToken, (req, res) => {
                   res.status(401).send(error3);
                 } else {
                   if (!dog2) {
-                    // Case : The dog's mother haven't been registered.
+                    // CASE : The dog's mother haven't been registered.
                     console.log("The mother of your dog is not registered/approved in the system. Please check the mother's ID");
                     res.send({msg: "The mother of your dog is not registered/approved in the system. Please check the mother's ID"});
                   } else {
-                    // Case : The dog's mother have registered.
+                    // CASE : The dog's mother have registered.
                     
                     // The following field of a breeder account is set to false,
                     // because the breeder account details have not saved to blockchain yet.

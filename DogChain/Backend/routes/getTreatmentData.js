@@ -13,11 +13,11 @@ router.get('/:treatId', verifyToken, (req, res) => {
     .then(result => {
       console.log(result);
       if (!result) {
-        // Case : Treatment data is absent
+        // CASE : Treatment data is absent
         console.log('Treatment data is absent');
         res.send({msg: 'Treatment data is absent'});
       } else {
-        // Case : Treatment data is present
+        // CASE : Treatment data is present
 
         // Smart contract method retreive the treatment data of the given id
         MyContract.methods.getDogTreatmentData(req.params.treatId)

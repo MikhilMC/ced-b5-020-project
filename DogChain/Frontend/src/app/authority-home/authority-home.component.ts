@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthorityHomeComponent implements OnInit {
 
+  // Authority menu
   activities: any[] = [
     {
       type: "APPROVING BREEDER/OWNER ACCOUNTS",

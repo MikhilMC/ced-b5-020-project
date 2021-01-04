@@ -13,12 +13,12 @@ router.get('/:dogId', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!dog) {
-        // Case : Details of the dog with the given id whose details
+        // CASE : Details of the dog with the given id whose details
         //        haven't been added to blockchain yet, is not present in the database.
         console.log('Dog not available');
         res.send({msg: 'Dog not available.'});
       } else {
-        // Case : Details of the dog with the given id whose details
+        // CASE : Details of the dog with the given id whose details
         //        haven't been added to blockchain yet, is present in the database.
         console.log(dog);
         res.status(200).send(dog);

@@ -14,14 +14,14 @@ router.post("", (req, res) => {
       res.status(401).send(err);
     } else {
       if (!user) {
-        // Case : Authority account with the given email doesn't exists.
+        // CASE : Authority account with the given email doesn't exists.
         res.send({ msg: "Invalid email" });
       } else if(user.password !== req.body.password) {
-        // Case : Authority account with the given email exists,
+        // CASE : Authority account with the given email exists,
         //        but the given password is incorrect
         res.send({ msg: "Invalid password" });
       } else {
-        // Case : The given email and password is correct
+        // CASE : The given email and password is correct
         let payload = {subject: user._id}
         let token = jwt.sign(payload, 'secretKey');   // Signing json web token.
         res.status(200).send({token, user});

@@ -36,7 +36,6 @@ export class RegisterUserComponent implements OnInit {
     this._actRoute.paramMap
     .subscribe((params)=>{
       this.accountType = params.get('type');
-      // console.log(this.accountType);
       if (this.accountType == 'doctor') {
         this.isDoctor = true;
       } else {
@@ -54,19 +53,19 @@ export class RegisterUserComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       if ("msg" in result) {
+        // CASE : Either entered user id or email which has already being used.
         alert(result["msg"]);
         this._router.navigateByUrl('/dummy', {skipLocationChange: true}).then(()=>{
           this._router.navigate(['/register-user', this.accountType]);
         });
       } else {
-        // console.log(result["signedupUser"]["hasAddedToBlockchain"] === false);
-        // console.log(result);
         if (result.hasOwnProperty("hasAddedToBlockchain")) {
-          // console.log(1);
+          // CASE : Either registration of the breeder and doctor,
+          //        because their registration is not approved by the authority yet
           console.log(result)
           this._router.navigate(['/primary-message'], { queryParams: { message: "Your account have been submitted for approval process. Please wait until the completion of approval process." } });
         } else {
-          // console.log(2);
+          // CASE : Registration of a authority account
           console.log(result);
           localStorage.setItem('userType','authority');
           localStorage.setItem('token', result['token'])

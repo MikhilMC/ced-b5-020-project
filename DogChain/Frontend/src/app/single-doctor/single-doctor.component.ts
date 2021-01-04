@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { AuthorityService } from '../authority.service';
 
 @Component({
@@ -15,8 +17,8 @@ export class SingleDoctorComponent implements OnInit {
 
   constructor(
     private _actRoute: ActivatedRoute,
-    private _router: Router,
-    private _authority: AuthorityService
+    private _authority: AuthorityService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -27,14 +29,20 @@ export class SingleDoctorComponent implements OnInit {
       this._authority.getDoctorDetails(this.doctorId)
       .subscribe(result => {
         if (result.hasOwnProperty('msg')) {
+          // CASE : The data of the doctor is not present
           this.isAvailable = false;
         } else {
+          // CASE : The data of the doctor is present
           this.isAvailable = true;
           this.doctorData = result;
           console.log(this.doctorData);
         }
       }, error => {
-        console.log(error);
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            this._auth.logoutUser();
+          }
+        }
       });
     });
   }

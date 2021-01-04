@@ -12,11 +12,11 @@ router.get('/', verifyToken, (req, res) => {
     .then(allBreederIds => {
       console.log(allBreederIds);
       if (allBreederIds.length === 0) {
-        // Case : There is no breeder account's data present in the system
+        // CASE : There is no breeder account's data present in the system
         console.log('Complete breeders list is empty.');
         res.send({emptyArrayMsg: 'Complete breeders list is empty.'});
       } else {
-        // Case : There are breeder account's data present in the system
+        // CASE : There are breeder account's data present in the system
 
         // Smart contract method to get all the details of the given breeders
         MyContract.methods.getBreedersList(allBreederIds)

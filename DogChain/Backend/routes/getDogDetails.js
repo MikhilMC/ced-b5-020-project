@@ -12,11 +12,11 @@ router.get('/:dogId', verifyToken, (req, res) => {
     .call({from: accounts[0]})
     .then(result => {
       if (!result) {
-        // Case : The details of the dog with the given id is not saved in the blockchain
+        // CASE : The details of the dog with the given id is not saved in the blockchain
         console.log('Dog with this ID is not registered. Please check the dog ID.');
-        res.send({breederErrorMsg: 'Dog with this ID is not registered. Please check the dog ID.'});
+        res.send({msg: 'Dog with this ID is not registered. Please check the dog ID.'});
       } else {
-        // Case : The details of the dog with the given id is available in the blockchain
+        // CASE : The details of the dog with the given id is available in the blockchain
 
         // Smart contract method to retreive the details of the dog with the given id
         MyContract.methods.getDogData(req.params.dogId)

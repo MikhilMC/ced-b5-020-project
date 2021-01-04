@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit {
     this.isBreeder = false;
     this.isDoctor = false;
     this.isAuthority = false;
-    this._auth.logOut();
+    this._auth.logoutUser();
   }
 
 }

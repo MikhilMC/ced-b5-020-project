@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { AuthService } from '../auth.service';
 import { AuthorityService } from "../authority.service";
 
 @Component({
@@ -13,22 +14,28 @@ export class BreedersListComponent implements OnInit {
   breedersList: any[]
 
   constructor(
-    private _router: Router,
-    private _authority: AuthorityService
+    private _authority: AuthorityService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this._authority.getBreedersList()
     .subscribe(result => {
       if (result.hasOwnProperty('emptyArrayMsg')) {
+        // CASE : There is no breeder account's data present in the system
         this.isAvailable = false;
       } else {
+        // CASE : There are breeder account's data present in the system
         this.isAvailable = true;
         this.breedersList = <any>(result);
         console.log(this.breedersList);
       }
     }, error => {
-      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          this._auth.logoutUser();
+        }
+      }
     });
   }
 

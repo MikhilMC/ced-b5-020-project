@@ -15,12 +15,12 @@ router.post('/', verifyToken, (req, res) => {
     .then(result1 => {
       console.log(result1);
       if (result1) {
-        // Case : The data of the treatment with the given id 
+        // CASE : The data of the treatment with the given id 
         //        is already present in the blockchain.
         console.log('Treatment data is already present');
         res.send({msg: 'Treatment data is already present'});
       } else {
-        // Case : The data of the treatment with the given id 
+        // CASE : The data of the treatment with the given id 
         //        is absent in the blockchain.
         
         // Smart contract method to check whether the details 
@@ -30,11 +30,11 @@ router.post('/', verifyToken, (req, res) => {
         .then(result2 => {
           console.log(result2);
           if (!result2) {
-            // Case : The given dog's data is absent in the blockchain
+            // CASE : The given dog's data is absent in the blockchain
             console.log('Dog with this ID is not registered. Please check the dog ID.');
             res.send({msg: 'Dog with this ID is not registered. Please check the dog ID.'});
           } else {
-            // Case : The given dog's data is present in the blockchain
+            // CASE : The given dog's data is present in the blockchain
             
             // Smart contract method to find whether the details 
             // of the doctor with the given id is saved in the blockchain or not
@@ -43,11 +43,11 @@ router.post('/', verifyToken, (req, res) => {
             .then(result3 => {
               console.log(result3);
               if (!result3) {
-                // Case : Doctor data is absent in the blockchain
+                // CASE : Doctor data is absent in the blockchain
                 console.log('Doctor with this ID is not registered. Please check the doctor ID.');
                 res.send({doctorErrorMsg: 'Doctor with this ID is not registered. Please check the doctor ID.'});
               } else {
-                // Case : Doctor data is present in the blockchain
+                // CASE : Doctor data is present in the blockchain
 
                 // Smart contract method to retrieve the details of the dog with the given id.
                 MyContract.methods.getDogData(treatData.dogId)

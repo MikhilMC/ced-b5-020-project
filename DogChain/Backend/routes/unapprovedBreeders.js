@@ -13,11 +13,11 @@ router.get('/', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!breeders) {
-        // Case : There is no breeder accounts available
+        // CASE : There is no breeder accounts available
         //        whose details haven't been added to blockchain yet.
         res.send({msg: "There are no unapproved breeders."})
       } else {
-        // Case : There are breeder accounts available
+        // CASE : There are breeder accounts available
         //        whose details haven't added to blockchain yet.
         console.log(breeders);
         res.status(200).send(breeders);        

@@ -13,11 +13,11 @@ router.get('/:vaccId', verifyToken, (req, res) => {
     .then(result => {
       console.log(result);
       if (!result) {
-        // Case : Vaccination data is absent
+        // CASE : Vaccination data is absent
         console.log('Vaccine data is absent');
         res.send({msg: 'Vaccine data is absent'});
       } else {
-        // Case : Vaccination data is present
+        // CASE : Vaccination data is present
 
         // Smart contract method retreive the vaccination data of the given id
         MyContract.methods.getVaccineData(req.params.vaccId)

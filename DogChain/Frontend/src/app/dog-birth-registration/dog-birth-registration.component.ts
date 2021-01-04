@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { BreederService } from "../breeder.service";
 
 @Component({
@@ -29,7 +31,8 @@ export class DogBirthRegistrationComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _breeder: BreederService
+    private _breeder: BreederService,
+    private _auth: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -48,20 +51,33 @@ export class DogBirthRegistrationComponent implements OnInit {
     .subscribe(result => {
       console.log(result);
       if ("msg" in result) {
+        // CASE : Either entered the dogId which already being used,
+        //        or entered fatherId or motherId as a wrong value
+        //        because there is no dog details present in the blockchain 
+        //        with id as the given fatherId or motherId
         alert(result["msg"]);
         this._router.navigateByUrl('/dummy', {skipLocationChange: true}).then(()=>{
           this._router.navigate(['/dog-birth-registration', this.breederId]);
         });
+      } else if("breederErrorMsg" in result) {
+        // CASE : Wrong breederId. Working of this app is compromised.
+        alert('Wrong breederId. Working of this app is compromised.')
+        this._auth.logoutUser();
       } else {
+        // CASE : Dog birth registration request is submitted, and waiting for approval.
         this._router.navigate(['/secondary-message'], {queryParams: {message: "Your dog's registration have been submitted for approval process. Please wait until the completion of approval process."}});
       }
     }, error => {
-      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          this._auth.logoutUser();
+        }
+      }
     })
   }
 
   onChange(value) {
-    // console.log(value);
+    // Function to change the accessibility of the fatherId and motherId fields.
     if (value === 'knownParents') {
       this.isFatherRegistered = true;
       this.isMotherRegistered = true;

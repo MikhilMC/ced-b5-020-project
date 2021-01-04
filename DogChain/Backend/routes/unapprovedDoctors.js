@@ -13,11 +13,11 @@ router.get('/', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!doctors) {
-        // Case : There is no doctor accounts available
+        // CASE : There is no doctor accounts available
         //        whose details haven't been added to blockchain yet.
         res.send({msg: "There are no unapproved doctors."})
       } else {
-        // Case : There is doctor accounts available
+        // CASE : There is doctor accounts available
         //        whose details haven't been added to blockchain yet.
         console.log(doctors);
         res.status(200).send(doctors);

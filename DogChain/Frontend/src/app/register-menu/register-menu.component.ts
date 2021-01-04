@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterMenuComponent implements OnInit {
 
+  // Type of accounts
   accounts: any[] = [
     {
       type: 'DOG OWNER / BREEDER',

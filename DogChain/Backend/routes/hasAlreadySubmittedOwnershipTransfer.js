@@ -14,13 +14,13 @@ router.get('/:userId/:dogId', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (transfer) {
-        // Case : Ownership transfer request is already submitted,
+        // CASE : Ownership transfer request is already submitted,
         //        hence the owner can not submit this dog's ownership transfer request again
         //        without the authority approves or deletes the current request.
         console.log(transfer);
         res.send({hasAlreadySubmitted: true});
       } else {
-        // Case : Ownership transfer request is not submitted,
+        // CASE : Ownership transfer request is not submitted,
         //        hence the owner can submit this dog's ownership transfer request
         res.send({hasAlreadySubmitted: false});
       }

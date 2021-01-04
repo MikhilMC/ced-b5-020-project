@@ -12,11 +12,11 @@ router.get('/:dogId', verifyToken, (req, res) => {
       res.status(401).send(error);
     } else {
       if (!transfer) {
-        // Case : The ownership transfer request of the dog with the given id is not available
+        // CASE : The ownership transfer request of the dog with the given id is not available
         console.log('Dog not available');
         res.send({msg: 'Dog not available.'});
       } else {
-        // Case : The ownership transfer request of the dog with the given id is available
+        // CASE : The ownership transfer request of the dog with the given id is available
         console.log(transfer);
         res.status(200).send(transfer);
       }
